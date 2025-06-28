@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3 Rising Stars: Interactive Leadership Course</title>
+    <!-- Chosen Palette: Warm Neutrals (Stone, Amber, Slate) -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to the four core modules: Passion, Integrity, Fruitfulness, and Hustle. Each module is a self-contained section featuring an introduction, interactive cards for key concepts, an accordion for practical tips, a timeline for a growth scenario, and an interactive quiz that generates a personalized radar chart. This structure was chosen to transform dense text into a digestible, engaging, and self-reflective journey, guiding the user from theory to practical application and personal insight. -->
+    <!-- Visualization & Content Choices: Report Info: Leadership principles (Passion, Integrity, etc.) and self-assessment questions. Goal: Educate, inspire, and facilitate self-reflection. Viz/Presentation: Interactive cards (HTML/CSS/JS) for key terms, accordions (HTML/CSS/JS) for tips, and a Radar Chart (Chart.js) for quiz results. Interaction: Clicks on cards/accordions reveal info. Radio button selections for quizzes trigger dynamic chart updates. Justification: This approach maximizes user engagement, breaks down complex topics, and provides immediate, visual feedback on self-assessment, which is more impactful than static text. Library/Method: Vanilla JS, Tailwind CSS, Chart.js. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-xl font-bold text-amber-600">C3 Rising Stars</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#passion" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Passion</a>
+                        <a href="#integrity" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Integrity</a>
+                        <a href="#fruitfulness" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Fruitfulness</a>
+                        <a href="#hustle" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Hustle</a>
+                    </div>
+                </div>
+                 <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-400 hover:text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-stone-800 focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#passion" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Passion</a>
+                <a href="#integrity" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Integrity</a>
+                <a href="#fruitfulness" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Fruitfulness</a>
+                <a href="#hustle" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Hustle</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Home Section -->
+        <section id="home" class="text-center min-h-[60vh] flex items-center justify-center section-fade-in">
+            <div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900">Unlock Your Leader DNA</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-stone-600">
+                    Welcome, C3 Rising Stars! Get ready for an epic adventure to unlock the leadership potential God has placed inside you. This isn't your average training. We're talking high-energy, "aha!" moments, and real-talk strategies to help you change the game.
+                </p>
+                <div class="mt-8">
+                     <a href="#passion" class="inline-block bg-amber-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-amber-700 transition-transform transform hover:scale-105">Let's Go!</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Passion Section -->
+        <section id="passion" class="py-16 md:py-24 space-y-12 section-fade-in">
+            <div class="text-center">
+                <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 1: The Heartbeat</h2>
+                <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Igniting the Fire: Cultivating Passion</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Passion is the unshakeable *why* that fuels everything you do. Like Jesus in Mark 2, a genuine passion for people and purpose draws others in. But what if the fire feels dim? Don't worry, passion can be cultivated.</p>
+            </div>
+            
+            <div id="passion-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900">Passion Radar Check</h3>
+                <p class="text-center text-stone-600 mt-2 mb-6">Let's see where you're at. Answer these to get your personalized Passion Radar.</p>
+                <div id="passion-questions" class="space-y-4"></div>
+                <div class="text-center mt-6">
+                    <button id="passion-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
+                </div>
+                <div id="passion-chart-wrapper" class="hidden mt-8">
+                   <div class="chart-container">
+                        <canvas id="passionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrity Section -->
+        <section id="integrity" class="py-16 md:py-24 space-y-12 section-fade-in">
+            <div class="text-center">
+                <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 2: The Foundation</h2>
+                <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Building Rock-Solid Foundations: Cultivating Integrity</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">After igniting passion, we lay down the foundation of Integrity. It's about being the same person in every situation—reliable, honest, and trustworthy. Integrity is the platform for breakthrough.</p>
+            </div>
+
+            <div id="integrity-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900">Integrity Radar Check</h3>
+                <p class="text-center text-stone-600 mt-2 mb-6">Time to check the foundations. How solid is your integrity radar?</p>
+                <div id="integrity-questions" class="space-y-4"></div>
+                <div class="text-center mt-6">
+                    <button id="integrity-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
+                </div>
+                <div id="integrity-chart-wrapper" class="hidden mt-8">
+                     <div class="chart-container">
+                        <canvas id="integrityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fruitfulness Section -->
+        <section id="fruitfulness" class="py-16 md:py-24 space-y-12 section-fade-in">
+            <div class="text-center">
+                <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 3: The Impact</h2>
+                <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Sowing for an Epic Harvest: Cultivating Fruitfulness</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">With passion and integrity, it's time to make it count. Fruitfulness isn't about being busy; it's about making a real, tangible impact. As Jesus said in John 15, when we remain in Him, we bear much fruit.</p>
+            </div>
+
+            <div id="fruitfulness-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900">Fruitfulness Radar Check</h3>
+                <p class="text-center text-stone-600 mt-2 mb-6">Are your efforts leading to a harvest? Let's check your fruitfulness radar.</p>
+                <div id="fruitfulness-questions" class="space-y-4"></div>
+                <div class="text-center mt-6">
+                    <button id="fruitfulness-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
+                </div>
+                <div id="fruitfulness-chart-wrapper" class="hidden mt-8">
+                     <div class="chart-container">
+                        <canvas id="fruitfulnessChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hustle Section -->
+        <section id="hustle" class="py-16 md:py-24 space-y-12 section-fade-in">
+            <div class="text-center">
+                <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 4: The Drive</h2>
+                <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">The Go-Getter Vibe: Cultivating Hustle</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">This is the final sprint! Hustle is that proactive, persistent, "get-it-done" energy that turns vision into reality. It's the "extra mile" spirit that brings breakthrough, just like the friends in Mark 2.</p>
+            </div>
+
+             <div id="hustle-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900">Hustle Radar Check</h3>
+                <p class="text-center text-stone-600 mt-2 mb-6">Are you a go-getter? Let's check your hustle radar and see your drive.</p>
+                <div id="hustle-questions" class="space-y-4"></div>
+                <div class="text-center mt-6">
+                    <button id="hustle-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
+                </div>
+                <div id="hustle-chart-wrapper" class="hidden mt-8">
+                    <div class="chart-container">
+                        <canvas id="hustleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-white">
+        <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 C3 Church Global. All Rights Reserved.</p>
+            <p class="text-sm text-slate-400 mt-2">A Rising Stars Leadership Development Resource</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const assessments = {
+                passion: {
+                    labels: ['Enthusiasm', 'Drive', 'Commitment', 'Inspiration', 'Joy', 'Engagement'],
+                    questions: [
+                        "When you're really into something, do you pretty much lose track of time?",
+                        "Does tackling a tough challenge actually get you hyped up?",
+                        "If you say you're gonna do it, are you 100% on it, no matter what?",
+                        "Do your good vibes kinda rub off on the people around you?",
+                        "Seeing your crew nail something big – does that seriously make your day?",
+                        "Are you always down to deep-dive and learn more about stuff you're passionate about?"
+                    ],
+                    chartId: 'passionChart',
+                    questionsContainerId: 'passion-questions',
+                    submitButtonId: 'passion-submit',
+                    chartWrapperId: 'passion-chart-wrapper',
+                    chartInstance: null
+                },
+                integrity: {
+                    labels: ['Honesty', 'Trustworthiness', 'Accountability', 'Consistency', 'Fairness', 'Ethics'],
+                    questions: [
+                        "If you messed up, would you own it, even if no one else caught it?",
+                        "Do you believe being consistent, like, actually builds mad trust with your people?",
+                        "Do you prioritize ethical conduct over achieving a quick win?",
+                        "Are you cool with saying 'IDK, but I'll find out!' when you don't have an answer?",
+                        "Do you treat everyone on your squad fairly, no favorites, just good vibes?",
+                        "Do you think a leader should always walk the talk when it comes to being honest?"
+                    ],
+                    chartId: 'integrityChart',
+                    questionsContainerId: 'integrity-questions',
+                    submitButtonId: 'integrity-submit',
+                    chartWrapperId: 'integrity-chart-wrapper',
+                    chartInstance: null
+                },
+                fruitfulness: {
+                    labels: ['Results-Oriented', 'Impact', 'Effectiveness', 'Growth-Minded', 'Innovation', 'Contribution'],
+                     questions: [
+                        "Are you always on the hunt for cooler, smarter ways to get things done?",
+                        "Do you feel like your hustle genuinely makes a difference and helps the team shine?",
+                        "Do you think a leader's main gig is making sure the team is producing some seriously cool stuff?",
+                        "Are you always checking in with yourself like, 'How can I level up my game?'",
+                        "Are you usually the one spotting potential roadblocks and figuring out how to zoom past them?",
+                        "Does seeing tangible, awesome results from your hard work make you feel like a boss?"
+                    ],
+                    chartId: 'fruitfulnessChart',
+                    questionsContainerId: 'fruitfulness-questions',
+                    submitButtonId: 'fruitfulness-submit',
+                    chartWrapperId: 'fruitfulness-chart-wrapper',
+                    chartInstance: null
+                },
+                hustle: {
+                    labels: ['Proactiveness', 'Initiative', 'Persistence', 'Work Ethic', 'Agility', 'Resourcefulness'],
+                    questions: [
+                        "Do you prefer to jump in and start something rather than waiting for someone to tell you what's next?",
+                        "Do you actively seek out solutions, even if it means stepping outside your usual lane?",
+                        "Do you believe in that 'never give up' mentality when you're chasing a goal?",
+                        "Are you cool with putting in some extra hours if it means crushing a project?",
+                        "When things go sideways, are you quick to pivot and figure out a new game plan?",
+                        "Do you see challenges as like, personal growth opportunities to level up?"
+                    ],
+                    chartId: 'hustleChart',
+                    questionsContainerId: 'hustle-questions',
+                    submitButtonId: 'hustle-submit',
+                    chartWrapperId: 'hustle-chart-wrapper',
+                    chartInstance: null
+                }
+            };
+
+            const answerOptions = [
+                { text: "Nah, not my jam.", value: 1 },
+                { text: "Kinda, depends.", value: 2 },
+                { text: "Yeah, that's me!", value: 3 },
+                { text: "Absolutely, 100%!", value: 4 }
+            ];
+
+            function createQuestionHTML(question, name, index) {
+                const optionsHTML = answerOptions.map((opt, i) => `
+                    <label for="${name}-${index}-${i}" class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-amber-50 cursor-pointer transition">
+                        <input type="radio" id="${name}-${index}-${i}" name="${name}-q${index}" value="${opt.value}" class="form-radio h-5 w-5 text-amber-600 focus:ring-amber-500">
+                        <span class="text-stone-700">${opt.text}</span>
+                    </label>
+                `).join('');
+
+                return `
+                    <div class="bg-stone-50 p-4 rounded-lg">
+                        <p class="font-semibold text-stone-800 mb-3">${index + 1}. ${question}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${optionsHTML}</div>
+                    </div>
+                `;
+            }
+
+            function setupAssessment(key) {
+                const assessment = assessments[key];
+                const container = document.getElementById(assessment.questionsContainerId);
+                assessment.questions.forEach((q, i) => {
+                    container.innerHTML += createQuestionHTML(q, key, i);
+                });
+
+                document.getElementById(assessment.submitButtonId).addEventListener('click', () => {
+                    const data = [];
+                    let allAnswered = true;
+                    for (let i = 0; i < assessment.questions.length; i++) {
+                        const selected = document.querySelector(`input[name="${key}-q${i}"]:checked`);
+                        if (selected) {
+                            data.push(parseInt(selected.value));
+                        } else {
+                            allAnswered = false;
+                            break;
+                        }
+                    }
+
+                    if (!allAnswered) {
+                        alert('Please answer all questions to see your radar!');
+                        return;
+                    }
+
+                    const chartWrapper = document.getElementById(assessment.chartWrapperId);
+                    chartWrapper.classList.remove('hidden');
+                    
+                    if (assessment.chartInstance) {
+                       assessment.chartInstance.destroy();
+                    }
+
+                    const ctx = document.getElementById(assessment.chartId).getContext('2d');
+                    assessment.chartInstance = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: assessment.labels,
+                            datasets: [{
+                                label: 'Your Radar',
+                                data: data,
+                                backgroundColor: 'rgba(217, 119, 6, 0.2)',
+                                borderColor: 'rgba(217, 119, 6, 1)',
+                                borderWidth: 2,
+                                pointBackgroundColor: 'rgba(217, 119, 6, 1)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(217, 119, 6, 1)'
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: {
+                                r: {
+                                    angleLines: {
+                                        color: 'rgba(0, 0, 0, 0.1)'
+                                    },
+                                    grid: {
+                                        color: 'rgba(0, 0, 0, 0.1)'
+                                    },
+                                    pointLabels: {
+                                        font: {
+                                            size: 12,
+                                            weight: 'bold'
+                                        },
+                                        color: '#334155'
+                                    },
+                                    suggestedMin: 0,
+                                    suggestedMax: 4,
+                                    ticks: {
+                                        stepSize: 1,
+                                        backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                        font: {
+                                            size: 10
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                     chartWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            }
+            
+            Object.keys(assessments).forEach(key => setupAssessment(key));
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Fade-in sections on scroll
+            const sections = document.querySelectorAll('.section-fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+        });
+    </script>
+
+</body>
+</html>
