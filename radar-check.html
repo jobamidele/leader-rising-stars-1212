@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C3 Rising Stars: Interactive Leadership Course</title>
     <!-- Chosen Palette: Warm Neutrals (Stone, Amber, Slate) -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to the four core modules: Passion, Integrity, Fruitfulness, and Hustle. Each module is a self-contained section featuring an introduction, interactive cards for key concepts, an accordion for practical tips, a timeline for a growth scenario, and an interactive quiz that generates a personalized radar chart. This structure was chosen to transform dense text into a digestible, engaging, and self-reflective journey, guiding the user from theory to practical application and personal insight. -->
-    <!-- Visualization & Content Choices: Report Info: Leadership principles (Passion, Integrity, etc.) and self-assessment questions. Goal: Educate, inspire, and facilitate self-reflection. Viz/Presentation: Interactive cards (HTML/CSS/JS) for key terms, accordions (HTML/CSS/JS) for tips, and a Radar Chart (Chart.js) for quiz results. Interaction: Clicks on cards/accordions reveal info. Radio button selections for quizzes trigger dynamic chart updates. Justification: This approach maximizes user engagement, breaks down complex topics, and provides immediate, visual feedback on self-assessment, which is more impactful than static text. Library/Method: Vanilla JS, Tailwind CSS, Chart.js. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to the four core modules: Passion, Integrity, Fruitfulness, and Hustle. Instead of individual radar checks, there is a single, blended 30-question assessment at the end of the content sections. After completing all questions, a consolidated radar chart appears, showing the user's standing across all four attributes (Passion, Integrity, Fruitfulness, Hustle) simultaneously. Below this, a detailed feedback section dynamically populates with granular attribute scores and personalized tips. This structure was chosen to make the attribute assessment less obvious and more holistic, encouraging deeper self-reflection after engaging with all course material, thus enhancing the "aha!" moment of the final radar and providing actionable, detailed insights. -->
+    <!-- Visualization & Content Choices: Report Info: Leadership principles (Passion, Integrity, etc.) and blended self-assessment questions. Goal: Educate, inspire, facilitate self-reflection, and provide a holistic, obscured assessment with granular feedback. Viz/Presentation: Interactive cards (HTML/CSS/JS) for key terms, accordions (HTML/CSS/JS) for tips, a timeline (HTML/CSS) for a growth scenario, and a single Radar Chart (Chart.js) for consolidated quiz results. Dynamic HTML/CSS sections for granular feedback. Interaction: Clicks on cards/accordions reveal info. Radio button selections for quizzes are collected, and a single submit button triggers the overall radar chart and the detailed feedback. Justification: This approach maximizes user engagement by blending the assessment questions throughout, breaks down complex topics, and provides a powerful, single visual feedback on self-assessment for all attributes at once, making the discovery more impactful. The dynamic feedback section then tells a detailed story based on the results. Library/Method: Vanilla JS, Tailwind CSS, Chart.js. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -43,6 +43,42 @@
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
         }
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            text-align: center;
+            max-width: 90%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 antialiased">
@@ -60,6 +96,7 @@
                         <a href="#integrity" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Integrity</a>
                         <a href="#fruitfulness" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Fruitfulness</a>
                         <a href="#hustle" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">Hustle</a>
+                        <a href="#assessment" class="nav-link text-stone-600 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-amber-600">My Radar</a>
                     </div>
                 </div>
                  <div class="md:hidden">
@@ -78,6 +115,7 @@
                 <a href="#integrity" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Integrity</a>
                 <a href="#fruitfulness" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Fruitfulness</a>
                 <a href="#hustle" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">Hustle</a>
+                <a href="#assessment" class="nav-link text-stone-600 hover:text-amber-600 block px-3 py-2 rounded-md text-base font-medium">My Radar</a>
             </div>
         </div>
     </header>
@@ -102,20 +140,18 @@
             <div class="text-center">
                 <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 1: The Heartbeat</h2>
                 <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Igniting the Fire: Cultivating Passion</p>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Passion is the unshakeable *why* that fuels everything you do. Like Jesus in Mark 2, a genuine passion for people and purpose draws others in. But what if the fire feels dim? Don't worry, passion can be cultivated.</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Passion is the unshakeable *why* that fuels everything you do. Like Jesus in Mark 2, a genuine passion for people and purpose draws others in. It's not just something you're born with; it's something you **cultivate** by remembering your divine calling and serving with joy.</p>
             </div>
             
-            <div id="passion-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-bold text-center text-slate-900">Passion Radar Check</h3>
-                <p class="text-center text-stone-600 mt-2 mb-6">Let's see where you're at. Answer these to get your personalized Passion Radar.</p>
-                <div id="passion-questions" class="space-y-4"></div>
-                <div class="text-center mt-6">
-                    <button id="passion-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
-                </div>
-                <div id="passion-chart-wrapper" class="hidden mt-8">
-                   <div class="chart-container">
-                        <canvas id="passionChart"></canvas>
-                    </div>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">What's in the Mix for Passion?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Enthusiasm:</p><p class="text-stone-700">The contagious spark that makes people lean in.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Drive:</p><p class="text-stone-700">The inner engine that keeps you moving, even when it's tough.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Commitment:</p><p class="text-stone-700">Sticking with it, through thick and thin. It's loyalty to the vision.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Inspiration:</p><p class="text-stone-700">Being a source of energy and vision for yourself and others.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Dedication:</p><p class="text-stone-700">Pouring your whole self into the mission.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Joy & Engagement:</p><p class="text-stone-700">Finding genuine delight and being fully present in the work.</p></div>
                 </div>
             </div>
         </section>
@@ -125,20 +161,19 @@
             <div class="text-center">
                 <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 2: The Foundation</h2>
                 <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Building Rock-Solid Foundations: Cultivating Integrity</p>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">After igniting passion, we lay down the foundation of Integrity. It's about being the same person in every situation—reliable, honest, and trustworthy. Integrity is the platform for breakthrough.</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">After igniting passion, we lay down the foundation of Integrity. It's about being the same person in every situation—reliable, honest, and trustworthy. This commitment to character builds the platform for breakthrough.</p>
             </div>
 
-            <div id="integrity-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-bold text-center text-slate-900">Integrity Radar Check</h3>
-                <p class="text-center text-stone-600 mt-2 mb-6">Time to check the foundations. How solid is your integrity radar?</p>
-                <div id="integrity-questions" class="space-y-4"></div>
-                <div class="text-center mt-6">
-                    <button id="integrity-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
-                </div>
-                <div id="integrity-chart-wrapper" class="hidden mt-8">
-                     <div class="chart-container">
-                        <canvas id="integrityChart"></canvas>
-                    </div>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">What's in the Mix for Integrity?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Honesty:</p><p class="text-stone-700">Telling the truth, even when it's tough.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Trustworthiness:</p><p class="text-stone-700">Being someone others can consistently rely on.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Ethics:</p><p class="text-stone-700">Doing what's right, even when no one is watching.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Accountability:</p><p class="text-stone-700">Owning your actions and responsibilities.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Transparency:</p><p class="text-stone-700">Being open and clear in your dealings.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Consistency:</p><p class="text-stone-700">Being reliable and predictable in your character and actions.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Fairness:</p><p class="text-stone-700">Treating everyone justly and equitably.</p></div>
                 </div>
             </div>
         </section>
@@ -148,20 +183,19 @@
             <div class="text-center">
                 <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Week 3: The Impact</h2>
                 <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Sowing for an Epic Harvest: Cultivating Fruitfulness</p>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">With passion and integrity, it's time to make it count. Fruitfulness isn't about being busy; it's about making a real, tangible impact. As Jesus said in John 15, when we remain in Him, we bear much fruit.</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">With passion and integrity, it's time to make it count. Fruitfulness isn't about being busy; it's about making a real, tangible impact. When we remain connected to the Vine, we bear much fruit.</p>
             </div>
 
-            <div id="fruitfulness-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-bold text-center text-slate-900">Fruitfulness Radar Check</h3>
-                <p class="text-center text-stone-600 mt-2 mb-6">Are your efforts leading to a harvest? Let's check your fruitfulness radar.</p>
-                <div id="fruitfulness-questions" class="space-y-4"></div>
-                <div class="text-center mt-6">
-                    <button id="fruitfulness-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
-                </div>
-                <div id="fruitfulness-chart-wrapper" class="hidden mt-8">
-                     <div class="chart-container">
-                        <canvas id="fruitfulnessChart"></canvas>
-                    </div>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">What's in the Mix for Fruitfulness?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Results-oriented:</p><p class="text-stone-700">Focused on achieving clear, measurable outcomes.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Impact:</p><p class="text-stone-700">Making a tangible, positive difference.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Productivity:</p><p class="text-stone-700">Getting meaningful work done efficiently.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Effectiveness:</p><p class="text-stone-700">Doing the right things to achieve the desired effect.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Growth-minded:</p><p class="text-stone-700">Always looking for ways to expand, improve, and level up.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Innovation:</p><p class="text-stone-700">Finding new, creative, and better ways to do things.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Contribution:</p><p class="text-stone-700">Adding real value to the team and the mission.</p></div>
                 </div>
             </div>
         </section>
@@ -174,20 +208,49 @@
                 <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">This is the final sprint! Hustle is that proactive, persistent, "get-it-done" energy that turns vision into reality. It's the "extra mile" spirit that brings breakthrough, just like the friends in Mark 2.</p>
             </div>
 
-             <div id="hustle-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-bold text-center text-slate-900">Hustle Radar Check</h3>
-                <p class="text-center text-stone-600 mt-2 mb-6">Are you a go-getter? Let's check your hustle radar and see your drive.</p>
-                <div id="hustle-questions" class="space-y-4"></div>
-                <div class="text-center mt-6">
-                    <button id="hustle-submit" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition">See My Radar</button>
-                </div>
-                <div id="hustle-chart-wrapper" class="hidden mt-8">
-                    <div class="chart-container">
-                        <canvas id="hustleChart"></canvas>
-                    </div>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">What's in the Mix for Hustle?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Proactiveness:</p><p class="text-stone-700">Taking initiative, not waiting to be told.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Diligence:</p><p class="text-stone-700">Consistently putting in the hard work, paying attention to detail.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Initiative:</p><p class="text-stone-700">Being the one to start things, to jump in.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Persistence:</p><p class="text-stone-700">Not giving up when things get tough; pushing through obstacles.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Work Ethic:</p><p class="text-stone-700">A strong commitment to putting in the effort required.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Agility:</p><p class="text-stone-700">Being able to quickly adapt and pivot when plans change.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Resourcefulness:</p><p class="text-stone-700">Finding creative ways to solve problems with what you have.</p></div>
                 </div>
             </div>
         </section>
+
+        <!-- Overall Assessment Section -->
+        <section id="assessment" class="py-16 md:py-24 space-y-12 section-fade-in">
+            <div class="text-center">
+                <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Your Leader Radar</h2>
+                <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Discover Your Leadership Profile</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Now, let's see how your leadership attributes are shaping up. Answer the questions below, and we'll reveal your personalized leadership radar!</p>
+            </div>
+            
+            <div id="overall-assessment-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Your Leadership Check-in</h3>
+                <p class="text-center text-stone-600 mt-2 mb-6">Be honest with yourself! There are no wrong answers, just opportunities to grow.</p>
+                <div id="blended-questions" class="space-y-4"></div>
+                <div class="text-center mt-6">
+                    <button id="overall-submit" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-amber-700 transition-transform transform hover:scale-105">Reveal My Radar!</button>
+                </div>
+                <div id="overall-chart-wrapper" class="hidden mt-8">
+                   <div class="chart-container">
+                        <canvas id="overallRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Personalized Feedback Section -->
+                <div id="feedback-section" class="hidden mt-12 pt-8 border-t border-stone-200">
+                    <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Your Leadership Snapshot: Areas to Grow</h3>
+                    <p class="text-center text-stone-600 mb-8">Here's a deeper dive into your results, with insights and practical tips to help you level up!</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="bg-slate-900 text-white">
@@ -197,74 +260,47 @@
         </div>
     </footer>
 
+    <!-- Message Box HTML -->
+    <div id="messageBox" class="message-box">
+        <p id="messageContent" class="text-stone-800 mb-4"></p>
+        <button id="closeMessageBox" class="bg-amber-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-amber-700 transition">Got It!</button>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const assessments = {
-                passion: {
-                    labels: ['Enthusiasm', 'Drive', 'Commitment', 'Inspiration', 'Joy', 'Engagement'],
-                    questions: [
-                        "When you're really into something, do you pretty much lose track of time?",
-                        "Does tackling a tough challenge actually get you hyped up?",
-                        "If you say you're gonna do it, are you 100% on it, no matter what?",
-                        "Do your good vibes kinda rub off on the people around you?",
-                        "Seeing your crew nail something big – does that seriously make your day?",
-                        "Are you always down to deep-dive and learn more about stuff you're passionate about?"
-                    ],
-                    chartId: 'passionChart',
-                    questionsContainerId: 'passion-questions',
-                    submitButtonId: 'passion-submit',
-                    chartWrapperId: 'passion-chart-wrapper',
-                    chartInstance: null
-                },
-                integrity: {
-                    labels: ['Honesty', 'Trustworthiness', 'Accountability', 'Consistency', 'Fairness', 'Ethics'],
-                    questions: [
-                        "If you messed up, would you own it, even if no one else caught it?",
-                        "Do you believe being consistent, like, actually builds mad trust with your people?",
-                        "Do you prioritize ethical conduct over achieving a quick win?",
-                        "Are you cool with saying 'IDK, but I'll find out!' when you don't have an answer?",
-                        "Do you treat everyone on your squad fairly, no favorites, just good vibes?",
-                        "Do you think a leader should always walk the talk when it comes to being honest?"
-                    ],
-                    chartId: 'integrityChart',
-                    questionsContainerId: 'integrity-questions',
-                    submitButtonId: 'integrity-submit',
-                    chartWrapperId: 'integrity-chart-wrapper',
-                    chartInstance: null
-                },
-                fruitfulness: {
-                    labels: ['Results-Oriented', 'Impact', 'Effectiveness', 'Growth-Minded', 'Innovation', 'Contribution'],
-                     questions: [
-                        "Are you always on the hunt for cooler, smarter ways to get things done?",
-                        "Do you feel like your hustle genuinely makes a difference and helps the team shine?",
-                        "Do you think a leader's main gig is making sure the team is producing some seriously cool stuff?",
-                        "Are you always checking in with yourself like, 'How can I level up my game?'",
-                        "Are you usually the one spotting potential roadblocks and figuring out how to zoom past them?",
-                        "Does seeing tangible, awesome results from your hard work make you feel like a boss?"
-                    ],
-                    chartId: 'fruitfulnessChart',
-                    questionsContainerId: 'fruitfulness-questions',
-                    submitButtonId: 'fruitfulness-submit',
-                    chartWrapperId: 'fruitfulness-chart-wrapper',
-                    chartInstance: null
-                },
-                hustle: {
-                    labels: ['Proactiveness', 'Initiative', 'Persistence', 'Work Ethic', 'Agility', 'Resourcefulness'],
-                    questions: [
-                        "Do you prefer to jump in and start something rather than waiting for someone to tell you what's next?",
-                        "Do you actively seek out solutions, even if it means stepping outside your usual lane?",
-                        "Do you believe in that 'never give up' mentality when you're chasing a goal?",
-                        "Are you cool with putting in some extra hours if it means crushing a project?",
-                        "When things go sideways, are you quick to pivot and figure out a new game plan?",
-                        "Do you see challenges as like, personal growth opportunities to level up?"
-                    ],
-                    chartId: 'hustleChart',
-                    questionsContainerId: 'hustle-questions',
-                    submitButtonId: 'hustle-submit',
-                    chartWrapperId: 'hustle-chart-wrapper',
-                    chartInstance: null
-                }
-            };
+            const allQuestions = [
+                { q: "When you're really into something, do you pretty much lose track of time?", mainAttr: "Passion", subAttr: "Engagement" },
+                { q: "If you commit to something, do you follow through, no matter what?", mainAttr: "Integrity", subAttr: "Consistency" },
+                { q: "Do you actively look for smarter, cooler ways to get things done?", mainAttr: "Fruitfulness", subAttr: "Innovation" },
+                { q: "Do you usually jump in and start a task, rather than waiting for instructions?", mainAttr: "Hustle", subAttr: "Initiative" },
+                { q: "Does tackling a tough challenge usually get you hyped up?", mainAttr: "Passion", subAttr: "Enthusiasm" },
+                { q: "If you messed up, would you own it, even if no one else caught it?", mainAttr: "Integrity", subAttr: "Accountability" },
+                { q: "Do you feel your efforts genuinely help the team shine and make a real difference?", mainAttr: "Fruitfulness", subAttr: "Impact" },
+                { q: "Do you actively seek out solutions, even if it means stepping outside your usual role?", mainAttr: "Hustle", subAttr: "Resourcefulness" },
+                { q: "Do your good vibes and enthusiasm tend to rub off on others around you?", mainAttr: "Passion", subAttr: "Inspiration" },
+                { q: "Do you believe being consistent in your words and actions builds mad trust with people?", mainAttr: "Integrity", subAttr: "Trustworthiness" },
+                { q: "Are you always checking in with yourself asking, 'How can I level up my game?'", mainAttr: "Fruitfulness", subAttr: "Growth-minded" },
+                { q: "Do you believe in that 'never give up' mentality when chasing a goal?", mainAttr: "Hustle", subAttr: "Persistence" },
+                { q: "Seeing your crew nail something big – does that seriously make your day?", mainAttr: "Passion", subAttr: "Joy" },
+                { q: "Would you pick doing the right thing over a quick, kinda shady win?", mainAttr: "Integrity", subAttr: "Ethics" },
+                { q: "Are you usually the one spotting potential roadblocks and figuring out how to zoom past them?", mainAttr: "Fruitfulness", subAttr: "Effectiveness" },
+                { q: "Are you cool with putting in some extra hours if it means crushing a project?", mainAttr: "Hustle", subAttr: "Work Ethic" },
+                { q: "Are you always down to deep-dive and learn more about stuff you're passionate about?", mainAttr: "Passion", subAttr: "Drive" },
+                { q: "Do you think a leader should always walk the talk when it comes to being honest and owning it?", mainAttr: "Integrity", subAttr: "Honesty" },
+                { q: "Does seeing tangible, awesome results from your hard work make you feel like a boss?", mainAttr: "Fruitfulness", subAttr: "Results-oriented" },
+                { q: "When things go sideways, are you quick to pivot and figure out a new game plan?", mainAttr: "Hustle", subAttr: "Agility" },
+                { q: "Do you find genuine delight in the work you do, even the gritty parts?", mainAttr: "Passion", subAttr: "Joy" }, 
+                { q: "Are you comfortable saying 'I don't know, but I'll find out!' when you don't have an answer?", mainAttr: "Integrity", subAttr: "Transparency" },
+                { q: "Do you enjoy setting big, awesome goals and then chasing them down?", mainAttr: "Fruitfulness", subAttr: "Productivity" },
+                { q: "Do you see challenges as personal growth opportunities to level up?", mainAttr: "Hustle", subAttr: "Proactiveness" },
+                { q: "Do you feel fully present and all-in when you're participating in team activities?", mainAttr: "Passion", subAttr: "Engagement" }, 
+                { q: "Do you treat everyone on your squad fairly, no favorites, just good vibes?", mainAttr: "Integrity", subAttr: "Fairness" },
+                { q: "Are your contributions adding real, measurable value to the team and the mission?", mainAttr: "Fruitfulness", subAttr: "Contribution" },
+                { q: "Do you proactively anticipate needs and take steps to address them before being asked?", mainAttr: "Hustle", subAttr: "Proactiveness" }, 
+                { q: "Do you often find yourself thinking about how to improve things, even outside of official work time?", mainAttr: "Passion", subAttr: "Commitment" }, 
+                { q: "Do you always strive for clear, open communication in all your dealings?", mainAttr: "Integrity", subAttr: "Transparency" }
+            ];
 
             const answerOptions = [
                 { text: "Nah, not my jam.", value: 1 },
@@ -273,111 +309,266 @@
                 { text: "Absolutely, 100%!", value: 4 }
             ];
 
-            function createQuestionHTML(question, name, index) {
+            const detailedAttributeDefinitions = {
+                Passion: {
+                    description: "Your Passion is the fuel for your leadership journey. It's the inner fire that compels you forward and inspires those around you. A high score here means your 'why' is strong and visible!",
+                    attributes: {
+                        "Enthusiasm": "Keep that spark! Find new ways to connect with what excites you in your service. Engage actively in what God is doing.",
+                        "Drive": "Identify one clear goal this week in your ministry and relentlessly pursue it. Let your 'why' fuel your every step.",
+                        "Commitment": "Deepen your 'why.' Reconnect with the core purpose of your ministry and commit wholeheartedly.",
+                        "Inspiration": "Share your vision and breakthroughs with others. Your genuine excitement can ignite theirs.",
+                        "Dedication": "Consistently show up, not just physically, but with your whole heart and mind in your service.",
+                        "Joy": "Cultivate gratitude in your ministry. Celebrate small wins and breakthroughs to sustain your inner delight.",
+                        "Engagement": "Be fully present and all-in during every moment of service. Listen, participate, and immerse yourself."
+                    }
+                },
+                Integrity: {
+                    description: "Integrity is your unshakeable foundation, building trust and stability. This shows you're committed to being consistent, honest, and reliable—a leader people can truly lean on.",
+                    attributes: {
+                        "Honesty": "Practice radical truth-telling in all your interactions, even when it's uncomfortable.",
+                        "Trustworthiness": "Always follow through on your commitments, big or small, to build strong relationships.",
+                        "Ethics": "When faced with choices, always ask: 'What is the most righteous and God-honoring path?'",
+                        "Accountability": "Own your mistakes quickly, learn from them, and take steps to correct them.",
+                        "Transparency": "Communicate openly and clearly with your team; avoid withholding appropriate information.",
+                        "Consistency": "Ensure your actions always align with your words and the values of C3 Church.",
+                        "Fairness": "Strive to treat everyone justly and equitably, listening to all perspectives with an open heart."
+                    }
+                },
+                Fruitfulness: {
+                    description: "Fruitfulness is all about impact—making your efforts count for God's Kingdom. It's about smart work, clear results, and constant growth, ensuring your labor produces a bountiful harvest for His glory.",
+                    attributes: {
+                        "Results-oriented": "Define clear 'wins' for your tasks and ministry areas, and track your progress towards them.",
+                        "Impact": "Before starting any task, ask: 'How will this genuinely help people or advance the C3 mission?'",
+                        "Productivity": "Focus on the most important tasks that yield the greatest results for the Kingdom.",
+                        "Effectiveness": "Regularly reflect on what's working and what isn't, and adjust your approach to be more effective.",
+                        "Growth-minded": "Seek out new knowledge and skills to expand your capacity and spiritual gifting.",
+                        "Innovation": "Challenge the status quo. Is there a better, fresher, or more creative way to do this for God's glory?",
+                        "Contribution": "Look for opportunities to add value beyond your basic duties and contribute to the greater vision."
+                    }
+                },
+                Hustle: {
+                    description: "Hustle is your proactive drive—that 'go-getter' spirit that turns vision into reality. It’s about initiative, persistence, and finding a way, even when challenges arise, embodying the spirit of faith.",
+                    attributes: {
+                        "Proactiveness": "Anticipate needs within your team or ministry and take action before being asked.",
+                        "Diligence": "Commit to excellence in every detail of your service; avoid settling for 'good enough'.",
+                        "Initiative": "Don't wait for permission; identify a need, pray about it, and jump in to make a difference.",
+                        "Persistence": "When you encounter an obstacle, find another way through or around it with faith and determination.",
+                        "Work Ethic": "Consistently put in the necessary effort to see tasks through to completion, honoring God with your labor.",
+                        "Agility": "Be ready to pivot quickly and adapt to changing circumstances or new directions from leadership.",
+                        "Resourcefulness": "Solve problems creatively, leveraging the gifts, talents, and people God has placed around you."
+                    }
+                }
+            };
+
+            function createQuestionHTML(questionObj, index) {
                 const optionsHTML = answerOptions.map((opt, i) => `
-                    <label for="${name}-${index}-${i}" class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-amber-50 cursor-pointer transition">
-                        <input type="radio" id="${name}-${index}-${i}" name="${name}-q${index}" value="${opt.value}" class="form-radio h-5 w-5 text-amber-600 focus:ring-amber-500">
+                    <label for="q${index}-${i}" class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-amber-50 cursor-pointer transition">
+                        <input type="radio" id="q${index}-${i}" name="question-${index}" value="${opt.value}" class="form-radio h-5 w-5 text-amber-600 focus:ring-amber-500">
                         <span class="text-stone-700">${opt.text}</span>
                     </label>
                 `).join('');
 
                 return `
                     <div class="bg-stone-50 p-4 rounded-lg">
-                        <p class="font-semibold text-stone-800 mb-3">${index + 1}. ${question}</p>
+                        <p class="font-semibold text-stone-800 mb-3">${index + 1}. ${questionObj.q}</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${optionsHTML}</div>
                     </div>
                 `;
             }
 
-            function setupAssessment(key) {
-                const assessment = assessments[key];
-                const container = document.getElementById(assessment.questionsContainerId);
-                assessment.questions.forEach((q, i) => {
-                    container.innerHTML += createQuestionHTML(q, key, i);
-                });
+            const questionsContainer = document.getElementById('blended-questions');
+            allQuestions.forEach((q, i) => {
+                questionsContainer.innerHTML += createQuestionHTML(q, i);
+            });
 
-                document.getElementById(assessment.submitButtonId).addEventListener('click', () => {
-                    const data = [];
-                    let allAnswered = true;
-                    for (let i = 0; i < assessment.questions.length; i++) {
-                        const selected = document.querySelector(`input[name="${key}-q${i}"]:checked`);
-                        if (selected) {
-                            data.push(parseInt(selected.value));
-                        } else {
-                            allAnswered = false;
-                            break;
+            let overallRadarChartInstance = null;
+
+            // Message box elements
+            const messageBox = document.getElementById('messageBox');
+            const messageContent = document.getElementById('messageContent');
+            const closeMessageBoxButton = document.getElementById('closeMessageBox');
+            const overlay = document.getElementById('overlay');
+            const feedbackSection = document.getElementById('feedback-section');
+
+            function showMessageBox(message) {
+                messageContent.textContent = message;
+                messageBox.classList.add('show');
+                overlay.classList.add('show');
+            }
+
+            function hideMessageBox() {
+                messageBox.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+
+            closeMessageBoxButton.addEventListener('click', hideMessageBox);
+            overlay.addEventListener('click', hideMessageBox);
+
+            document.getElementById('overall-submit').addEventListener('click', () => {
+                const mainAttrScores = {
+                    Passion: [],
+                    Integrity: [],
+                    Fruitfulness: [],
+                    Hustle: []
+                };
+                const subAttrScores = {};
+                let allAnswered = true;
+
+                for (let i = 0; i < allQuestions.length; i++) {
+                    const selected = document.querySelector(`input[name="question-${i}"]:checked`);
+                    if (selected) {
+                        const score = parseInt(selected.value);
+                        mainAttrScores[allQuestions[i].mainAttr].push(score);
+
+                        // Initialize subAttr array if it doesn't exist
+                        if (!subAttrScores[allQuestions[i].subAttr]) {
+                            subAttrScores[allQuestions[i].subAttr] = [];
                         }
-                    }
+                        subAttrScores[allQuestions[i].subAttr].push(score);
 
-                    if (!allAnswered) {
-                        alert('Please answer all questions to see your radar!');
-                        return;
+                    } else {
+                        allAnswered = false;
+                        break;
                     }
+                }
 
-                    const chartWrapper = document.getElementById(assessment.chartWrapperId);
-                    chartWrapper.classList.remove('hidden');
-                    
-                    if (assessment.chartInstance) {
-                       assessment.chartInstance.destroy();
-                    }
+                if (!allAnswered) {
+                    showMessageBox('Please answer all questions to reveal your radar!');
+                    return;
+                }
 
-                    const ctx = document.getElementById(assessment.chartId).getContext('2d');
-                    assessment.chartInstance = new Chart(ctx, {
-                        type: 'radar',
-                        data: {
-                            labels: assessment.labels,
-                            datasets: [{
-                                label: 'Your Radar',
-                                data: data,
-                                backgroundColor: 'rgba(217, 119, 6, 0.2)',
-                                borderColor: 'rgba(217, 119, 6, 1)',
-                                borderWidth: 2,
-                                pointBackgroundColor: 'rgba(217, 119, 6, 1)',
-                                pointBorderColor: '#fff',
-                                pointHoverBackgroundColor: '#fff',
-                                pointHoverBorderColor: 'rgba(217, 119, 6, 1)'
-                            }]
-                        },
-                        options: {
-                            maintainAspectRatio: false,
-                            scales: {
-                                r: {
-                                    angleLines: {
-                                        color: 'rgba(0, 0, 0, 0.1)'
+                const averagedMainAttrScores = {};
+                for (const attr in mainAttrScores) {
+                    const sum = mainAttrScores[attr].reduce((acc, val) => acc + val, 0);
+                    averagedMainAttrScores[attr] = mainAttrScores[attr].length > 0 ? sum / mainAttrScores[attr].length : 0;
+                }
+
+                const averagedSubAttrScores = {};
+                for (const subAttr in subAttrScores) {
+                    const sum = subAttrScores[subAttr].reduce((acc, val) => acc + val, 0);
+                    averagedSubAttrScores[subAttr] = subAttrScores[subAttr].length > 0 ? sum / subAttrScores[subAttr].length : 0;
+                }
+
+
+                const chartWrapper = document.getElementById('overall-chart-wrapper');
+                chartWrapper.classList.remove('hidden');
+                
+                if (overallRadarChartInstance) {
+                   overallRadarChartInstance.destroy();
+                }
+
+                const ctx = document.getElementById('overallRadarChart').getContext('2d');
+                overallRadarChartInstance = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Passion', 'Integrity', 'Fruitfulness', 'Hustle'],
+                        datasets: [{
+                            label: 'Your Leadership Radar',
+                            data: [
+                                averagedMainAttrScores.Passion,
+                                averagedMainAttrScores.Integrity,
+                                averagedMainAttrScores.Fruitfulness,
+                                averagedMainAttrScores.Hustle
+                            ],
+                            backgroundColor: 'rgba(217, 119, 6, 0.2)',
+                            borderColor: 'rgba(217, 119, 6, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(217, 119, 6, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(217, 119, 6, 1)'
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                pointLabels: {
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
                                     },
-                                    grid: {
-                                        color: 'rgba(0, 0, 0, 0.1)'
-                                    },
-                                    pointLabels: {
-                                        font: {
-                                            size: 12,
-                                            weight: 'bold'
-                                        },
-                                        color: '#334155'
-                                    },
-                                    suggestedMin: 0,
-                                    suggestedMax: 4,
-                                    ticks: {
-                                        stepSize: 1,
-                                        backdropColor: 'rgba(255, 255, 255, 0.75)',
-                                        font: {
-                                            size: 10
-                                        }
+                                    color: '#334155'
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 4,
+                                ticks: {
+                                    stepSize: 1,
+                                    backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                    font: {
+                                        size: 12
                                     }
                                 }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
                             },
-                            plugins: {
-                                legend: {
-                                    display: false
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const item = tooltipItems[0];
+                                        let label = item.chart.data.labels[item.dataIndex];
+                                        if (Array.isArray(label)) {
+                                          return label.join(' ');
+                                        }
+                                        return label;
+                                    }
                                 }
                             }
                         }
-                    });
-                     chartWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                 });
-            }
-            
-            Object.keys(assessments).forEach(key => setupAssessment(key));
+                
+                // Generate detailed feedback
+                feedbackSection.innerHTML = `
+                    <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Your Leadership Snapshot: Areas to Grow</h3>
+                    <p class="text-center text-stone-600 mb-8">Here's a deeper dive into your results, with insights and practical tips to help you level up!</p>
+                `;
+                const feedbackThreshold = 2.5;
+
+                for (const mainAttrKey in detailedAttributeDefinitions) {
+                    const mainAttrDef = detailedAttributeDefinitions[mainAttrKey];
+                    let mainAttrHtml = `
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
+                            <h4 class="text-xl font-bold text-amber-600 mb-4">${mainAttrKey}: ${mainAttrDef.description}</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    `;
+                    let hasAreasToWorkOn = false;
+
+                    for (const subAttrKey in mainAttrDef.attributes) {
+                        const tip = mainAttrDef.attributes[subAttrKey];
+                        const score = averagedSubAttrScores[subAttrKey] ? averagedSubAttrScores[subAttrKey].toFixed(1) : 'N/A';
+                        let cardClass = 'bg-stone-50';
+                        let feedbackText = '';
+
+                        if (score !== 'N/A' && parseFloat(score) < feedbackThreshold) {
+                            cardClass = 'bg-red-50 border border-red-200';
+                            feedbackText = `<p class="text-red-700 mt-2 text-sm font-semibold">Area to Strengthen: ${tip}</p>`;
+                            hasAreasToWorkOn = true;
+                        }
+
+                        mainAttrHtml += `
+                            <div class="${cardClass} p-4 rounded-lg">
+                                <p class="font-semibold text-stone-800">${subAttrKey}: <span class="font-bold text-amber-700">${score}/4</span></p>
+                                ${feedbackText}
+                            </div>
+                        `;
+                    }
+                    mainAttrHtml += `</div></div>`;
+                    feedbackSection.innerHTML += mainAttrHtml;
+                }
+
+                feedbackSection.classList.remove('hidden');
+                chartWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
             
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -400,7 +591,6 @@
             sections.forEach(section => {
                 observer.observe(section);
             });
-
         });
     </script>
 
