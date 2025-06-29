@@ -1,342 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 1: Igniting the Fire - Cultivating Passion</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Using Inter font for consistency with the main app -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for utility-first styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Base styles */
+        /* Custom styles to integrate with Tailwind and match the main app's aesthetic */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Lighter background for a fresh feel */
-            color: #333; /* Darker black for better contrast */
-            line-height: 1.7; /* Slightly increased line height for readability */
-            scroll-behavior: smooth;
+            /* Tailwind classes bg-stone-50 and text-stone-800 are applied directly to body */
         }
-        .container {
-            max-width: 700px; /* Reduced max-width for more whitespace and squished feel */
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: #ffffff;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
-            border-radius: 1rem; /* More rounded corners */
-            overflow: hidden; /* Clear any floating elements */
-        }
-
-        /* Headings */
-        h1, h2, h3 {
-            font-family: 'Lora', serif;
-            font-weight: 700;
-            color: rgb(217, 119, 6); /* Accent color for all headings */
-            margin-bottom: 1rem;
-        }
-        h1 {
-            font-size: 3rem; /* Larger hero title */
-            line-height: 1.1;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        h2 {
-            font-size: 2.2rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1.2rem;
-            border-bottom: 3px solid rgb(255, 237, 218); /* Thicker, softer border */
-            padding-bottom: 0.75rem;
-            position: relative; /* For potential pseudo-elements */
-        }
-        h3 {
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Paragraphs and lists */
-        p {
-            margin-bottom: 1.2rem;
-            font-size: 1.05rem; /* Slightly larger body font */
-        }
-        strong {
-            font-weight: 700;
-            color: rgb(217, 119, 6); /* Accent color for bolded text */
-        }
-        ul {
-            list-style-type: none; /* Remove default bullets */
+        /* Custom list styling for the flame icon - aligns with the "Rising Stars" aesthetic */
+        ul.custom-list {
+            list-style-type: none;
             padding-left: 0;
-            margin-bottom: 1.5rem;
         }
-        li {
-            margin-bottom: 0.8rem;
+        ul.custom-list li {
             position: relative;
             padding-left: 1.8rem; /* Space for custom bullet */
+            margin-bottom: 0.8rem;
         }
-        li::before {
-            content: '🔥'; /* Custom bullet icon */
+        ul.custom-list li::before {
+            content: '🔥'; /* Custom bullet icon: Fire emoji */
             position: absolute;
             left: 0;
-            color: rgb(217, 119, 6);
+            color: #F59E0B; /* Amber-600 equivalent */
             font-size: 1.2em;
             top: 0;
         }
-
-        /* Reading time */
-        .reading-time {
-            font-size: 1rem;
-            color: rgb(217, 119, 6); /* Accent color for reading time */
-            margin-bottom: 2.5rem;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        /* Special boxes */
-        .quote-box {
-            background-color: rgb(255, 247, 237);
-            border-left: 6px solid rgb(217, 119, 6);
-            padding: 2rem;
-            margin: 3rem 0;
-            border-radius: 0.75rem;
-            font-style: italic;
-            color: #444; /* Darker text for quote */
-            font-size: 1.1rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-        .challenge-box {
-            background-color: rgb(255, 251, 245);
-            border: 2px dashed rgb(217, 119, 6); /* Dashed border for a fun look */
-            padding: 2rem;
-            margin-top: 2.5rem;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center; /* Vertically align icon and text */
-            gap: 1.5rem; /* Space between icon and text */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-        .challenge-box .icon {
-            font-size: 3rem; /* Larger icon */
-            color: rgb(217, 119, 6);
-            line-height: 1; /* Adjust line height for better alignment */
-        }
-        .scenario-box {
-            background-color: #fcfcfc;
-            border: 1px solid #e0e0e0;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .weekly-questions {
-            background-color: rgb(255, 247, 237);
-            border-radius: 1rem;
-            padding: 2.5rem;
-            margin-top: 3rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .weekly-questions ol {
+        /* Custom list styling for ordered questions with numeric counter */
+        ol.question-list {
             list-style-type: none; /* Remove default numbers */
             padding-left: 0;
+            counter-reset: question-counter; /* Initialize counter */
         }
-        .weekly-questions li {
+        ol.question-list li {
+            position: relative;
+            padding-left: 2.5rem; /* Space for custom number */
             margin-bottom: 1.5rem;
             font-weight: 500;
-            position: relative;
-            padding-left: 2rem;
         }
-        .weekly-questions li::before {
-            content: counter(item) '.'; /* Add custom counter */
-            counter-increment: item;
+        ol.question-list li::before {
+            counter-increment: question-counter; /* Increment counter */
+            content: counter(question-counter) "."; /* Display counter */
             position: absolute;
             left: 0;
-            color: rgb(217, 119, 6);
+            top: 0;
             font-weight: bold;
             font-size: 1.3em;
-            top: 0;
+            color: #F59E0B; /* Amber-600 equivalent */
+            line-height: 1.5; /* Adjust line height for better alignment with text */
         }
-
-        /* Images */
-        .article-image {
-            width: 100%;
-            height: 250px; /* Fixed height for consistency */
-            object-fit: cover; /* Ensures image covers area without distortion */
-            border-radius: 0.75rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://placehold.co/1200x400/FFF8DC/DDA04E?text=Ignite+Your+Passion') no-repeat center center/cover;
-            padding: 4rem 2rem;
-            border-radius: 1rem;
-            margin-bottom: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(217, 119, 6, 0.1), rgba(255, 255, 255, 0.1));
-            z-index: 1;
-        }
-        .hero-section h1 {
-            color: rgb(217, 119, 6);
-            font-size: 3.5rem; /* Even larger for hero */
-            z-index: 2;
-            position: relative;
-            margin-bottom: 1rem;
-            font-weight: 800; /* Extra bold */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        .hero-section .reading-time {
-            color: #555; /* Slightly muted for hero subtitle */
-            font-size: 1.1rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Responsive adjustments */
+        /* Responsive adjustments for list items */
         @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            h2 {
-                font-size: 1.8rem;
-            }
-            h3 {
-                font-size: 1.3rem;
-            }
-            .hero-section {
-                padding: 3rem 1.5rem;
-            }
-            .hero-section h1 {
-                font-size: 3rem;
-            }
-            li::before, .weekly-questions li::before {
+            ul.custom-list li::before, ol.question-list li::before {
                 font-size: 1em; /* Smaller icons on small screens */
                 top: 0.2rem;
             }
         }
-        @media (max-width: 640px) {
-            .container {
-                padding: 1rem;
-                margin: 0.5rem;
-                border-radius: 0.5rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            h2 {
-                font-size: 1.6rem;
-            }
-            h3 {
-                font-size: 1.1rem;
-            }
-            .hero-section {
-                padding: 2rem 1rem;
-            }
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-            .challenge-box {
-                flex-direction: column;
-                text-align: center;
-            }
-            .challenge-box .icon {
-                margin-right: 0;
-                margin-bottom: 0.5rem;
-            }
-        }
     </style>
 </head>
-<body class="p-4 sm:p-6 md:p-8">
-    <div class="container">
-        <div class="hero-section">
-            <h1 class="font-extrabold">Week 1: Igniting the Fire - Cultivating Passion</h1>
-            <p class="reading-time">Estimated Reading Time: 3 minutes</p>
-        </div>
+<body class="bg-stone-50 text-stone-800 antialiased">
+    <!-- Main content container, styled similarly to the sections in the main radar app -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 bg-white p-6 md:p-8 rounded-xl shadow-lg my-8">
 
-        <section class="prose max-w-none">
-            <p>Okay, C3 Fam, let's kick things off with the <strong>HEARTBEAT</strong> of all great leadership: <strong>Passion</strong>. It's that unshakeable why that fuels everything you do. You know, like when Jesus "entered Capernaum, the people heard that he had come home. They gathered in such large numbers that there was no room left... and he preached the word to them." (Mark 2:1-2) His passion for people and the Word drew crowds!</p>
+        <!-- Hero Section - Adapted to match the main app's home section aesthetic -->
+        <section class="text-center min-h-[40vh] flex items-center justify-center section-fade-in mb-8">
+            <div>
+                <p class="text-base font-semibold text-amber-600 tracking-wider uppercase mb-2">Week 1: The Heartbeat</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900">Igniting the Fire:<br>Cultivating Passion</h1>
+                <p class="mt-4 text-lg text-stone-600">Estimated Reading Time: 3 minutes</p>
+            </div>
+        </section>
 
-            <img src="https://placehold.co/768x300/FFBF73/DDA04E?text=Spark+Your+Inner+Drive" alt="Abstract image representing sparking passion or energy" class="article-image">
+        <section class="space-y-8">
+            <p class="text-lg text-stone-600">Okay, C3 Fam, let's kick things off with the <strong class="font-bold text-amber-700">HEARTBEAT</strong> of all great leadership: <strong class="font-bold text-amber-700">Passion</strong>. It's that unshakeable why that fuels everything you do. You know, like when Jesus "entered Capernaum, the people heard that he had come home. They gathered in such large numbers that there was no room left... and he preached the word to them." (Mark 2:1-2) His passion for people and the Word drew crowds!</p>
 
-            <p>But what if that fire feels a little... dim? Or maybe it's just not there for certain things? No worries! Passion isn't just something you're born with; it's something you <strong>cultivate</strong>.</p>
+            <img src="https://placehold.co/768x300/FAD28A/DDA04E?text=Spark+Your+Inner+Drive" alt="Abstract image representing sparking passion or energy" class="w-full h-auto rounded-lg shadow-md my-6">
 
-            <h2>What's in the Mix for Passion?</h2>
-            <p>It's a powerful cocktail of core elements that work together to fuel your journey:</p>
-            <ul>
-                <li><strong>Enthusiasm:</strong> It's that spark, that contagious excitement that makes people lean in.</li>
-                <li><strong>Drive:</strong> The inner engine that keeps you moving, even when it's tough.</li>
-                <li><strong>Commitment:</strong> Sticking with it, through thick and thin. It's loyalty to the vision.</li>
-                <li><strong>Inspiration:</strong> Being a source of energy and vision for yourself and others.</li>
-                <li><strong>Dedication:</strong> Pouring your whole self into the mission.</li>
-                <li><strong>Joy:</strong> Finding genuine delight in the work, even the gritty parts.</li>
-                <li><strong>Engagement:</strong> Being fully present, all-in, ready to participate.</li>
+            <p class="text-lg text-stone-600">But what if that fire feels a little... dim? Or maybe it's just not there for certain things? No worries! Passion isn't just something you're born with; it's something you <strong class="font-bold text-amber-700">cultivate</strong>.</p>
+
+            <!-- What's in the Mix for Passion? - Adapted to grid layout and card-like styling -->
+            <div class="bg-stone-100 p-6 md:p-8 rounded-xl shadow-inner">
+                <h2 class="text-2xl font-bold text-center text-slate-900 mb-6">What's in the Mix for Passion?</h2>
+                <p class="text-lg text-stone-600 text-center mb-6">It's a powerful cocktail of core elements that work together to fuel your journey:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="font-semibold text-stone-800">Enthusiasm:</p>
+                        <p class="text-stone-700 text-sm">It's that spark, that contagious excitement that makes people lean in.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="font-semibold text-stone-800">Drive:</p>
+                        <p class="text-stone-700 text-sm">The inner engine that keeps you moving, even when it's tough.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="font-semibold text-stone-800">Commitment:</p>
+                        <p class="text-stone-700 text-sm">Sticking with it, through thick and thin. It's loyalty to the vision.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="font-semibold text-stone-800">Inspiration:</p>
+                        <p class="text-stone-700 text-sm">Being a source of energy and vision for yourself and others.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="font-semibold text-stone-800">Dedication:</p>
+                        <p class="text-stone-700 text-sm">Pouring your whole self into the mission.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="font-semibold text-stone-800">Joy & Engagement:</p>
+                        <p class="text-stone-700 text-sm">Finding genuine delight and being fully present in the work.</p>
+                    </div>
+                </div>
+            </div>
+
+            <img src="https://placehold.co/768x300/FAD28A/DDA04E?text=Cultivate+Your+Purpose" alt="Abstract image representing growth and purpose" class="w-full h-auto rounded-lg shadow-md my-6">
+
+            <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Stoking the Flames</h2>
+            <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">How to Stoke the Flames: Cultivating Passion</p>
+            <p class="mt-4 text-lg text-stone-600">It all starts with your <strong class="font-bold text-amber-700">"WHY."</strong> Why are you here? Why do you serve? Why does C3 matter to you? When you connect with that deep purpose, everything else shifts. It's not about what you do, but why you do it.</p>
+
+            <img src="https://placehold.co/768x300/FAD28A/DDA04E?text=Fan+the+Flame" alt="Abstract image representing fanning a flame or igniting something" class="w-full h-auto rounded-lg shadow-md my-6">
+
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Practical Tips to Fan the Flame:</h3>
+            <ul class="custom-list space-y-2">
+                <li><strong class="font-semibold text-stone-800">Remember Your "Why":</strong> If you don't have your "why," the city is too hard. Connect with the reason God called you here. What burden do you carry for people? For our city?</li>
+                <li><strong class="font-semibold text-stone-800">Seek Divine Connections:</strong> See every interaction as a "divine moment." When you genuinely connect with people, their stories, their needs – your heart expands, and passion grows.</li>
+                <li><strong class="font-semibold text-stone-800">Serve the "One":</strong> Don't get overwhelmed by the crowd. Focus on the one person right in front of you. Every "one" matters to God, and serving them can ignite a fresh passion.</li>
+                <li><strong class="font-semibold text-stone-800">Immerse Yourself:</strong> The more you dive in, learn, and experience, the more that passion can take root.</li>
+                <li><strong class="font-semibold text-stone-800">Celebrate Small Wins:</strong> Acknowledging progress, even tiny steps, releases dopamine and reinforces positive feelings, fueling more enthusiasm!</li>
             </ul>
 
-            <img src="https://placehold.co/768x300/FFBF73/DDA04E?text=Cultivate+Your+Purpose" alt="Abstract image representing growth and purpose" class="article-image">
+            <!-- Quote box (previously an unstyled div, now a quote-box styled to match palette) -->
+            <blockquote class="bg-amber-50 border-l-4 border-amber-600 p-6 rounded-lg shadow-md italic text-stone-700 my-8">
+                <p>"When your passion aligns with your purpose, leadership becomes less about effort and more about overflow."</p>
+            </blockquote>
 
-            <h2>How to Stoke the Flames: Cultivating Passion</h2>
-            <p>It all starts with your <strong>"WHY."</strong> Why are you here? Why do you serve? Why does C3 matter to you? When you connect with that deep purpose, everything else shifts. It's not about what you do, but why you do it.</p>
 
-            <img src="https://placehold.co/768x300/FFBF73/DDA04E?text=Fan+the+Flame" alt="Abstract image representing fanning a flame or igniting something" class="article-image">
-
-            <h3>Practical Tips to Fan the Flame:</h3>
-            <ul>
-                <li><strong>Remember Your "Why":</strong> If you don't have your "why," the city is too hard. Connect with the reason God called you here. What burden do you carry for people? For our city?</li>
-                <li><strong>Seek Divine Connections:</strong> See every interaction as a "divine moment." When you genuinely connect with people, their stories, their needs – your heart expands, and passion grows.</li>
-                <li><strong>Serve the "One":</strong> Don't get overwhelmed by the crowd. Focus on the one person right in front of you. Every "one" matters to God, and serving them can ignite a fresh passion.</li>
-                <li><strong>Immerse Yourself:</strong> The more you dive in, learn, and experience, the more that passion can take root.</li>
-                <li><strong>Celebrate Small Wins:</strong> Acknowledging progress, even tiny steps, releases dopamine and reinforces positive feelings, fueling more enthusiasm!</li>
-            </ul>
-
-            <div class="scenario-box">
-                <h2>Scenario: From "Just Showing Up" to "Spark Plug"!</h2>
-                <p>Let's meet <strong>Alex</strong>. Alex volunteers on the welcome team, showing up reliably on Sundays. But honestly, it often feels like they's just checking a box. Their smile is a bit forced, their greetings are rote, and they's usually looking at their watch. They're present, but not truly engaged. They're not bad, just... bland. Their initial "why" has faded, replaced by routine.</p>
+            <!-- Scenario Box - Replicate overall container styling -->
+            <div class="bg-stone-100 p-6 md:p-8 rounded-xl shadow-inner my-8">
+                <h2 class="text-2xl font-bold text-slate-900 text-center mb-6">Scenario: From "Just Showing Up" to "Spark Plug"!</h2>
+                <p class="text-lg text-stone-600">Let's meet <strong class="font-bold text-amber-700">Alex</strong>. Alex volunteers on the welcome team, showing up reliably on Sundays. But honestly, it often feels like they's just checking a box. Their smile is a bit forced, their greetings are rote, and they's usually looking at their watch. They're present, but not truly engaged. They're not bad, just... bland. Their initial "why" has faded, replaced by routine.</p>
                 
-                <img src="https://placehold.co/768x300/FFBF73/DDA04E?text=Teamwork+and+Connection" alt="Abstract image representing people connecting or a team working together" class="article-image">
+                <img src="https://placehold.co/768x300/FAD28A/DDA04E?text=Teamwork+and+Connection" alt="Abstract image representing people connecting or a team working together" class="w-full h-auto rounded-lg shadow-md my-6">
 
-                <p>Here's Alex's journey as they cultivate Passion:</p>
-                <ul>
-                    <li><strong>The Spark (Week 1 Focus):</strong> Alex starts this course, and the first session hits different. The idea of a "why" beyond just a roster slot makes them think, or remember. During their self-study, they spend time asking God: Why did I even sign up for this team in the first first place? What was that initial hope? They start to intentionally make eye contact with arriving guests, remembering the challenge to "Engage!" They even try to remember one guest's name. It feels a bit weird at first, but for the first time, a genuine smile appears.</li>
-                    <li><strong>The Flickering Flame (Week 2):</strong> Alex's team leader, sensing a shift, challenges them to <strong>seek out one "divine connection"</strong> each Sunday – one person to truly listen to their story, even for a minute. Alex hears a story from a new visitor who shares how much it meant that someone genuinely welcomed them. A small flicker of joy ignites within Alex. They start to feel a <strong>drive</strong> to connect more deeply.</li>
-                    <li><strong>The Growing Inferno (Week 3):</strong> Alex realizes that the small, seemingly mundane task of greeting isn't just about opening a door; it's about opening a heart to God's house. They feel a growing <strong>commitment</strong> to making every person feel seen and valued. This renewed <strong>dedication</strong> makes them start arriving a few minutes earlier to mentally prepare, and their <strong>enthusiasm</strong> becomes visibly more genuine. They even start looking forward to their shifts.</li>
-                    <li><strong>The Raging Fire (Week 4 & Beyond):</strong> Alex is now a "spark plug" on the welcome team! Their genuine <strong>joy</strong> and <strong>engagement</strong> are infectious. They proactively train new volunteers, sharing stories of how a simple greeting can change someone's day. They's always thinking of creative ways to make guests feel even more welcomed (e.g., suggesting a "first-time guest" station with C3 merch). Alex isn't just "on the team" anymore; they're an <strong>inspiration</strong>, leading with a deep, visible <strong>passion</strong> for people and for God's house. The "how can this be?" (Mark 2:12) factor starts to show in their leadership.</li>
+                <p class="text-lg text-stone-600">Here's Alex's journey as they cultivate Passion:</p>
+                <ul class="custom-list space-y-2">
+                    <li><strong class="font-semibold text-stone-800">The Spark (Week 1 Focus):</strong> Alex starts this course, and the first session hits different. The idea of a "why" beyond just a roster slot makes them think, or remember. During their self-study, they spend time asking God: Why did I even sign up for this team in the first first place? What was that initial hope? They start to intentionally make eye contact with arriving guests, remembering the challenge to "Engage!" They even try to remember one guest's name. It feels a bit weird at first, but for the first time, a genuine smile appears.</li>
+                    <li><strong class="font-semibold text-stone-800">The Flickering Flame (Week 2):</strong> Alex's team leader, sensing a shift, challenges them to <strong class="font-bold text-amber-700">seek out one "divine connection"</strong> each Sunday – one person to truly listen to their story, even for a minute. Alex hears a story from a new visitor who shares how much it meant that someone genuinely welcomed them. A small flicker of joy ignites within Alex. They start to feel a <strong class="font-bold text-amber-700">drive</strong> to connect more deeply.</li>
+                    <li><strong class="font-semibold text-stone-800">The Growing Inferno (Week 3):</strong> Alex realizes that the small, seemingly mundane task of greeting isn't just about opening a door; it's about opening a heart to God's house. They feel a growing <strong class="font-bold text-amber-700">commitment</strong> to making every person feel seen and valued. This renewed <strong class="font-bold text-amber-700">dedication</strong> makes them start arriving a few minutes earlier to mentally prepare, and their <strong class="font-bold text-amber-700">enthusiasm</strong> becomes visibly more genuine. They even start looking forward to their shifts.</li>
+                    <li><strong class="font-semibold text-stone-800">The Raging Fire (Week 4 & Beyond):</strong> Alex is now a "spark plug" on the welcome team! Their genuine <strong class="font-bold text-amber-700">joy</strong> and <strong class="font-bold text-amber-700">engagement</strong> are infectious. They proactively train new volunteers, sharing stories of how a simple greeting can change someone's day. They's always thinking of creative ways to make guests feel even more welcomed (e.g., suggesting a "first-time guest" station with C3 merch). Alex isn't just "on the team" anymore; they're an <strong class="font-bold text-amber-700">inspiration</strong>, leading with a deep, visible <strong class="font-bold text-amber-700">passion</strong> for people and for God's house. The "how can this be?" (Mark 2:12) factor starts to show in their leadership.</li>
                 </ul>
             </div>
 
-            <div class="weekly-questions">
-                <h2>Weekly Questions for Reflection & Discussion:</h2>
-                <ol>
-                    <li>Think about a time you felt deeply passionate about something (inside or outside church). What sparked that feeling?</li>
-                    <li>On a scale of "Nah, not really my jam" to "Absolutely, 100%," how engaged do you feel with your current area of service? Be honest!</li>
-                    <li>What's one "why" statement for your role that truly resonates with you?</li>
+            <!-- Weekly Questions Section - Replicate overall container styling and adapt list -->
+            <div class="bg-amber-50 p-6 md:p-8 rounded-xl shadow-lg my-8">
+                <h2 class="text-2xl font-bold text-slate-900 text-center mb-6">Weekly Questions for Reflection & Discussion:</h2>
+                <ol class="question-list space-y-4">
+                    <li><p class="text-lg text-stone-700">Think about a time you felt deeply passionate about something (inside or outside church). What sparked that feeling?</p></li>
+                    <li><p class="text-lg text-stone-700">On a scale of "Nah, not really my jam" to "Absolutely, 100%," how engaged do you feel with your current area of service? Be honest!</p></li>
+                    <li><p class="text-lg text-stone-700">What's one "why" statement for your role that truly resonates with you?</p></li>
                     <li>
-                        <div class="challenge-box">
-                            <span class="icon">&#128170;</span> <!-- Flexed biceps emoji for challenge -->
+                        <!-- Challenge Box - Adapted to match palette and responsive flex -->
+                        <div class="bg-white border-2 border-dashed border-amber-600 p-6 rounded-xl shadow-md flex flex-col md:flex-row items-center gap-4 my-8">
+                            <span class="text-5xl text-amber-600">&#128170;</span> <!-- Flexed biceps emoji for challenge -->
                             <div>
-                                <h3>Challenge:</h3>
-                                <p>This week, intentionally seek out one "divine connection" during your service or daily life. How did it feel? What did you learn?</p>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Challenge:</h3>
+                                <p class="text-lg text-stone-700">This week, intentionally seek out one "divine connection" during your service or daily life. How did it feel? What did you learn?</p>
                             </div>
                         </div>
                     </li>
                 </ol>
             </div>
         </section>
-    </div>
+    </main>
 </body>
 </html>
