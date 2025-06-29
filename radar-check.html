@@ -252,6 +252,14 @@
 
     </main>
 
+    <!-- Hidden Formspree Form -->
+    <form id="formspree-form" action="https://formspree.io/f/meokvwdd" method="POST" class="hidden">
+        <input type="hidden" name="_subject" id="formspree-subject">
+        <textarea name="message" id="formspree-message"></textarea>
+        <!-- You might want to add a visible email input if you want to collect the user's email -->
+        <!-- <input type="email" name="_replyto" placeholder="Your email"> -->
+    </form>
+
     <!-- Message Box and Overlay -->
     <div id="overlay" class="overlay"></div>
     <div id="message-box" class="message-box">
@@ -282,7 +290,10 @@
             let submitButton = document.getElementById('submit-quiz'); 
             const radarChartWrapper = document.getElementById('radar-chart-wrapper');
             const feedbackSection = document.getElementById('feedback-section');
-            const emailResultsButton = document.getElementById('email-results-button'); // Get the new button
+            const emailResultsButton = document.getElementById('email-results-button'); 
+            const formspreeForm = document.getElementById('formspree-form'); // Get the Formspree form
+            const formspreeSubject = document.getElementById('formspree-subject'); // Get the hidden subject input
+            const formspreeMessage = document.getElementById('formspree-message'); // Get the hidden message textarea
             let radarChart = null; // To hold the Chart.js instance
 
             // New questions and answer options as provided by the user
@@ -542,7 +553,7 @@
                 radarChartWrapper.classList.remove('hidden');
 
                 // Generate Feedback
-                feedbackSection.innerHTML = ''; // Clear previous feedback, but keep the email button
+                feedbackSection.innerHTML = ''; // Clear previous feedback
                 let feedbackContentHtml = ''; // Build feedback content separately
 
                 for (const attr in lastNormalizedScores) {
@@ -619,26 +630,31 @@
                 }
             }
 
-            function handleEmailResults() {
-                let emailSubject = encodeURIComponent("My Rising Stars Leadership Radar Results");
-                let emailBody = `Hello,\n\n`;
-                let recipientEmail = 'Bami.olubadejo@c3toronto.com'
-                emailBody += `Here are my results from the Rising Stars Interactive Leadership Course Radar Check:\n\n`;
-                emailBody += `--- Leadership Radar Scores (out of 4): ---\n`;
-                emailBody += `- Passion: ${lastNormalizedScores.passion.toFixed(2)}\n`;
-                emailBody += `- Integrity: ${lastNormalizedScores.integrity.toFixed(2)}\n`;
-                emailBody += `- Fruitfulness: ${lastNormalizedScores.fruitfulness.toFixed(2)}\n`;
-                emailBody += `- Hustle: ${lastNormalizedScores.hustle.toFixed(2)}\n`;
-                emailBody += `------------------------------------------\n\n`;
-                emailBody += `--- Personalized Feedback: ---\n`;
-                emailBody += `Passion: ${lastFeedbackTexts.passion}\n\n`;
-                emailBody += `Integrity: ${lastFeedbackTexts.integrity}\n\n`;
-                emailBody += `Fruitfulness: ${lastFeedbackTexts.fruitfulness}\n\n`;
-                emailBody += `Hustle: ${lastFeedbackTexts.hustle}\n\n`;
-                emailBody += `Looking forward to my growth journey!\n`;
+            async function handleEmailResults() {
+                const subject = "My Rising Stars Leadership Radar Results";
+                let messageBody = `Hello,\n\n`;
+                messageBody += `Here are my results from the Rising Stars Interactive Leadership Course Radar Check:\n\n`;
+                messageBody += `--- Leadership Radar Scores (out of 4): ---\n`;
+                messageBody += `- Passion: ${lastNormalizedScores.passion.toFixed(2)}\n`;
+                messageBody += `- Integrity: ${lastNormalizedScores.integrity.toFixed(2)}\n`;
+                messageBody += `- Fruitfulness: ${lastNormalizedScores.fruitfulness.toFixed(2)}\n`;
+                messageBody += `- Hustle: ${lastNormalizedScores.hustle.toFixed(2)}\n`;
+                messageBody += `------------------------------------------\n\n`;
+                messageBody += `--- Personalized Feedback: ---\n`;
+                messageBody += `Passion: ${lastFeedbackTexts.passion}\n\n`;
+                messageBody += `Integrity: ${lastFeedbackTexts.integrity}\n\n`;
+                messageBody += `Fruitfulness: ${lastFeedbackTexts.fruitfulness}\n\n`;
+                messageBody += `Hustle: ${lastFeedbackTexts.hustle}\n\n`;
+                messageBody += `Looking forward to my growth journey!\n`;
 
-                const mailtoLink = `mailto:${recipientEmail}subject=${emailSubject}&body=${encodeURIComponent(emailBody)}`;
-                window.location.href = mailtoLink;
+                formspreeSubject.value = subject;
+                formspreeMessage.value = messageBody;
+
+                // Submit the Formspree form
+                formspreeForm.submit();
+
+                // Optional: Show a confirmation message after submission
+                showMessageBox("Your results have been sent! Check your email for a confirmation from Formspree.");
             }
             
             // Initial render of questions
