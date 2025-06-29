@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rising Stars: Interactive Leadership Course</title>
     <!-- Chosen Palette: Warm Neutrals (Stone, Amber, Slate) -->
-    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to the four core modules: Passion, Integrity, Fruitfulness, and Hustle. Instead of individual radar checks, there is a single, blended 30-question assessment at the end of the content sections. After completing all questions, a consolidated radar chart appears, showing the user's standing across all four attributes (Passion, Integrity, Fruitfulness, Hustle) simultaneously. Below this, a detailed feedback section dynamically populates with granular attribute scores and personalized tips. This structure was chosen to make the attribute assessment less obvious and more holistic, encouraging deeper self-reflection after engaging with all course material, thus enhancing the "aha!" moment of the final radar and providing actionable, detailed insights. -->
+    <!-- Application Structure Plan: A single-page application with a sticky top navigation for easy access to the four core modules: Passion, Integrity, Fruitfulness, and Hustle. Instead of individual radar checks, there is a single, blended 30-question assessment at the end of the content sections. After completing all questions, a consolidated radar chart appears, showing the user's standing across all four attributes (Passion, Integrity, Fruitfulness, Hustle) simultaneously. Below this, a detailed feedback section dynamically populates with granular attribute scores and personalized tips. This structure was chosen to make the attribute assessment less obvious and more holistic, encouraging deeper self-reflection after engaging with all course material, thus enhancing the "aha!" moment of the "aha!" moment of the final radar and providing actionable, detailed insights. -->
     <!-- Visualization & Content Choices: Report Info: Leadership principles (Passion, Integrity, etc.) and blended self-assessment questions. Goal: Educate, inspire, facilitate self-reflection, and provide a holistic, obscured assessment with granular feedback. Viz/Presentation: Interactive cards (HTML/CSS/JS) for key terms, accordions (HTML/CSS/JS) for tips, a timeline (HTML/CSS) for a growth scenario, and a single Radar Chart (Chart.js) for consolidated quiz results. Dynamic HTML/CSS sections for granular feedback. Interaction: Clicks on cards/accordions reveal info. Radio button selections for quizzes are collected, and a single submit button triggers the overall radar chart and the detailed feedback. Justification: This approach maximizes user engagement by blending the assessment questions throughout, breaks down complex topics, and provides a powerful, single visual feedback on self-assessment for all attributes at once, making the discovery more impactful. The dynamic feedback section then tells a detailed story based on the results. Library/Method: Vanilla JS, Tailwind CSS, Chart.js. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -195,7 +195,7 @@
                     <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Effectiveness:</p><p class="text-stone-700">Doing the right things to achieve the desired effect.</p></div>
                     <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Growth-minded:</p><p class="text-stone-700">Always looking for ways to expand, improve, and level up.</p></div>
                     <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Innovation:</p><p class="text-stone-700">Finding new, creative, and better ways to do things.</p></div>
-                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Contribution:</p><p class="text-stone-700">Adding real value to the team and the mission.</p></div>
+                    <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-700">Contribution:</p><p class="text-stone-700">Adding real value to the team and the mission.</p></div>
                 </div>
             </div>
         </section>
@@ -227,865 +227,256 @@
             <div class="text-center">
                 <h2 class="text-base font-semibold text-amber-600 tracking-wider uppercase">Your Leader Radar</h2>
                 <p class="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Discover Your Leadership Profile</p>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">Answer these questions based on your role as a C3 team member to get your personalized leadership radar and actionable insights. Be honest.</p>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">
+                    It's time to see where you stand! Answer these questions to reveal your unique leadership radar and get personalized insights.
+                </p>
             </div>
 
-            <!-- Assessment Form -->
-            <form id="assessment-form" class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-8">
-                <!-- Question Block Structure Example -->
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">1. I actively seek out new responsibilities and challenges in my work.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q1" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q1" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q1" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q1" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">2. I maintain a positive attitude even when faced with significant setbacks.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q2" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q2" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q2" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q2" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">3. I always tell the truth, regardless of the consequences.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q3" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q3" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q3" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q3" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">4. I am consistently reliable in fulfilling my commitments.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q4" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q4" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q4" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q4" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">5. I strive to make a tangible, positive impact in my role.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q5" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q5" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q5" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q5" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">6. I am effective at achieving desired outcomes and goals.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q6" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q6" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q6" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q6" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">7. I proactively take initiative to solve problems before they escalate.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q7" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q7" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q7" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q7" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">8. I demonstrate strong persistence in pursuing long-term objectives.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q8" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q8" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q8" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q8" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">9. I am passionate about the mission and goals of my organization/team.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q9" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q9" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q9" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q9" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">10. I am enthusiastic and energetic in my approach to leadership.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q10" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q10" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q10" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q10" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">11. I am consistently honest and transparent in all my interactions.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q11" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q11" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q11" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q11" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">12. I take full accountability for my actions and decisions.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q12" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q12" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q12" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q12" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">13. I regularly contribute innovative ideas to my team/organization.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q13" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q13" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q13" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q13" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">14. I am highly productive and efficient in my work tasks.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q14" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q14" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q14" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q14" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">15. I am agile and adapt quickly to changing circumstances.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q15" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q15" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q15" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q15" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">16. I demonstrate a strong work ethic and commitment to my duties.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q16" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q16" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q16" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q16" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">17. I am driven by a deep sense of purpose in my leadership role.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q17" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q17" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q17" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q17" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">18. I inspire and motivate others through my actions and words.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q18" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q18" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q18" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q18" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">19. I consistently uphold ethical principles in all professional situations.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q19" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q19" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q19" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q19" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">20. I treat all team members and colleagues with fairness and respect.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q20" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q20" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q20" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q20" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">21. I am focused on achieving measurable results and outcomes.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q21" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q21" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q21" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q21" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">22. I actively seek opportunities for personal and professional growth.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q22" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q22" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q22" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q22" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">23. I am resourceful in finding solutions to complex problems.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q23" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q23" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q23" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q23" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">24. I am diligent in completing tasks and projects on time.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q24" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q24" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q24" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q24" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">25. I derive genuine joy and engagement from my leadership responsibilities.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q25" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q25" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q25" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q25" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">26. I am deeply committed to the long-term vision of our mission.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q26" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q26" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q26" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q26" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">27. My actions consistently align with my stated values and principles.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q27" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q27" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q27" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q27" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">28. I am trustworthy and reliable, always keeping my promises.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q28" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q28" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q28" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q28" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block border-b border-stone-200 pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">29. I ensure that my contributions lead to clear and positive results.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q29" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q29" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q29" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q29" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="question-block pb-6">
-                    <p class="text-lg font-semibold text-stone-800 mb-4">30. I actively seek out and implement new and better ways to perform tasks.</p>
-                    <div class="flex flex-wrap gap-4 md:gap-8 justify-center">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q30" value="1" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q30" value="2" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Disagree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q30" value="3" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Agree</span>
-                        </label>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="radio" name="q30" value="4" class="form-radio h-5 w-5 text-amber-600">
-                            <span class="ml-2 text-stone-700">Strongly Agree</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="text-center mt-8">
-                    <button type="submit" id="submit-assessment" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-amber-700 transition-transform transform hover:scale-105">
-                        Reveal My Radar!
-                    </button>
-                </div>
+            <form id="assessment-form" class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
+                <!-- Questions will be dynamically inserted here by JavaScript -->
             </form>
 
-            <!-- Radar Chart Section -->
-            <div id="chart-wrapper" class="hidden mt-12 bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <div id="radar-chart-wrapper" class="hidden mt-12 bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
                 <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Your Leadership Radar</h3>
                 <div class="chart-container">
-                    <canvas id="myRadarChart"></canvas>
+                    <canvas id="radarChart"></canvas>
                 </div>
             </div>
 
-            <!-- Feedback Section -->
-            <div id="feedback-section" class="hidden mt-12 bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6">
+            <div id="feedback-section" class="hidden mt-12 space-y-8 bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
                 <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Personalized Feedback</h3>
-                <!-- Dynamic feedback will be inserted here by JavaScript -->
+                <!-- Dynamic feedback will be inserted here -->
             </div>
         </section>
 
     </main>
 
-    <!-- Message Box and Overlay (for form validation) -->
-    <div id="message-box" class="message-box">
-        <p id="message-text" class="text-lg font-semibold text-stone-800 mb-4"></p>
-        <button id="close-message" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700">Got It!</button>
-    </div>
+    <!-- Message Box and Overlay -->
     <div id="overlay" class="overlay"></div>
+    <div id="message-box" class="message-box">
+        <p id="message-text" class="text-lg text-stone-700 mb-4"></p>
+        <button id="message-box-ok" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-700 transition-colors">OK</button>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const assessmentForm = document.getElementById('assessment-form');
-            const myRadarChartCanvas = document.getElementById('myRadarChart');
-            const chartWrapper = document.getElementById('chart-wrapper');
-            const feedbackSection = document.getElementById('feedback-section');
+        // Custom Message Box Functionality
+        function showMessageBox(message) {
             const messageBox = document.getElementById('message-box');
-            const messageText = document.getElementById('message-text');
-            const closeMessageButton = document.getElementById('close-message');
             const overlay = document.getElementById('overlay');
+            const messageText = document.getElementById('message-text');
+            const okButton = document.getElementById('message-box-ok');
 
-            let myRadarChart; // Variable to hold the Chart.js instance
+            messageText.textContent = message;
+            messageBox.classList.add('show');
+            overlay.classList.add('show');
 
-            // Function to show a custom message box
-            function showMessageBox(message) {
-                messageText.textContent = message;
-                messageBox.classList.add('show');
-                overlay.classList.add('show');
-            }
-
-            // Function to hide the custom message box
-            function hideMessageBox() {
+            okButton.onclick = () => {
                 messageBox.classList.remove('show');
                 overlay.classList.remove('show');
-            }
+            };
+        }
 
-            // Event listener for closing the message box
-            closeMessageButton.addEventListener('click', hideMessageBox);
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('assessment-form');
+            let submitButton = document.getElementById('submit-quiz'); 
+            const radarChartWrapper = document.getElementById('radar-chart-wrapper');
+            const feedbackSection = document.getElementById('feedback-section');
+            let radarChart = null; // To hold the Chart.js instance
 
-            // Define questions, attributes, and feedback
-            const questions = [
-                // Passion (8 questions)
-                { id: 'q1', attribute: 'Passion', text: 'I actively seek out new responsibilities and challenges in my work.', type: 'positive' }, // Hustle (Proactiveness)
-                { id: 'q2', attribute: 'Passion', text: 'I maintain a positive attitude even when faced with significant setbacks.', type: 'positive' }, // Passion (Enthusiasm/Drive)
-                { id: 'q9', attribute: 'Passion', text: 'I am passionate about the mission and goals of my organization/team.', type: 'positive' }, // Passion (Passion)
-                { id: 'q10', attribute: 'Passion', text: 'I am enthusiastic and energetic in my approach to leadership.', type: 'positive' }, // Passion (Enthusiasm)
-                { id: 'q17', attribute: 'Passion', text: 'I am driven by a deep sense of purpose in my leadership role.', type: 'positive' }, // Passion (Drive)
-                { id: 'q18', attribute: 'Passion', text: 'I inspire and motivate others through my actions and words.', type: 'positive' }, // Passion (Inspiration)
-                { id: 'q25', attribute: 'Passion', text: 'I derive genuine joy and engagement from my leadership responsibilities.', type: 'positive' }, // Passion (Joy & Engagement)
-                { id: 'q26', attribute: 'Passion', text: 'I am deeply committed to the long-term vision of our mission.', type: 'positive' }, // Passion (Commitment)
-                
-                // Integrity (7 questions)
-                { id: 'q3', attribute: 'Integrity', text: 'I always tell the truth, regardless of the consequences.', type: 'positive' }, // Integrity (Honesty)
-                { id: 'q4', attribute: 'Integrity', text: 'I am consistently reliable in fulfilling my commitments.', type: 'positive' }, // Integrity (Trustworthiness)
-                { id: 'q11', attribute: 'Integrity', text: 'I am consistently honest and transparent in all my interactions.', type: 'positive' }, // Integrity (Transparency)
-                { id: 'q12', attribute: 'Integrity', text: 'I take full accountability for my actions and decisions.', type: 'positive' }, // Integrity (Accountability)
-                { id: 'q19', attribute: 'Integrity', text: 'I consistently uphold ethical principles in all professional situations.', type: 'positive' }, // Integrity (Ethics)
-                { id: 'q20', attribute: 'Integrity', text: 'I treat all team members and colleagues with fairness and respect.', type: 'positive' }, // Integrity (Fairness)
-                { id: 'q27', attribute: 'Integrity', text: 'My actions consistently align with my stated values and principles.', type: 'positive' }, // Integrity (Consistency)
-                { id: 'q28', attribute: 'Integrity', text: 'I am trustworthy and reliable, always keeping my promises.', type: 'positive' }, // Integrity (Trustworthiness)
-                
-                // Fruitfulness (7 questions)
-                { id: 'q5', attribute: 'Fruitfulness', text: 'I strive to make a tangible, positive impact in my role.', type: 'positive' }, // Fruitfulness (Impact)
-                { id: 'q6', attribute: 'Fruitfulness', text: 'I am effective at achieving desired outcomes and goals.', type: 'positive' }, // Fruitfulness (Effectiveness)
-                { id: 'q13', attribute: 'Fruitfulness', text: 'I regularly contribute innovative ideas to my team/organization.', type: 'positive' }, // Fruitfulness (Innovation)
-                { id: 'q14', attribute: 'Fruitfulness', text: 'I am highly productive and efficient in my work tasks.', type: 'positive' }, // Fruitfulness (Productivity)
-                { id: 'q21', attribute: 'Fruitfulness', text: 'I am focused on achieving measurable results and outcomes.', type: 'positive' }, // Fruitfulness (Results-oriented)
-                { id: 'q22', attribute: 'Fruitfulness', text: 'I actively seek opportunities for personal and professional growth.', type: 'positive' }, // Fruitfulness (Growth-minded)
-                { id: 'q29', attribute: 'Fruitfulness', text: 'I ensure that my contributions lead to clear and positive results.', type: 'positive' }, // Fruitfulness (Contribution)
-
-                // Hustle (8 questions)
-                { id: 'q7', attribute: 'Hustle', text: 'I proactively take initiative to solve problems before they escalate.', type: 'positive' }, // Hustle (Initiative)
-                { id: 'q8', attribute: 'Hustle', text: 'I demonstrate strong persistence in pursuing long-term objectives.', type: 'positive' }, // Hustle (Persistence)
-                { id: 'q15', attribute: 'Hustle', text: 'I am agile and adapt quickly to changing circumstances.', type: 'positive' }, // Hustle (Agility)
-                { id: 'q16', attribute: 'Hustle', text: 'I demonstrate a strong work ethic and commitment to my duties.', type: 'positive' }, // Hustle (Work Ethic)
-                { id: 'q23', attribute: 'Hustle', text: 'I am resourceful in finding solutions to complex problems.', type: 'positive' }, // Hustle (Resourcefulness)
-                { id: 'q24', attribute: 'Hustle', text: 'I am diligent in completing tasks and projects on time.', type: 'positive' }, // Hustle (Diligence)
-                { id: 'q30', attribute: 'Hustle', text: 'I actively seek out and implement new and better ways to perform tasks.', type: 'positive' }, // Hustle (Innovation - though could be Fruitfulness too)
-                // Re-using q1 as a hustle question here for a total of 8 for hustle, originally it was a generic one.
-                { id: 'q1_repurpose', attribute: 'Hustle', text: 'I take initiative to continuously improve processes and outcomes.', type: 'positive' }
+            // New questions and answer options as provided by the user
+            const allQuestions = [
+                { q: "When you're really into something, do you pretty much lose track of time?", mainAttr: "Passion", subAttr: "Engagement" },
+                { q: "If you commit to something, do you follow through, no matter what?", mainAttr: "Integrity", subAttr: "Consistency" },
+                { q: "Do you actively look for smarter, cooler ways to get things done?", mainAttr: "Fruitfulness", subAttr: "Innovation" },
+                { q: "Do you usually jump in and start a task, rather than waiting for instructions?", mainAttr: "Hustle", subAttr: "Initiative" },
+                { q: "Does tackling a tough challenge usually get you hyped up?", mainAttr: "Passion", subAttr: "Enthusiasm" },
+                { q: "If you messed up, would you own it, even if no one else caught it?", mainAttr: "Integrity", subAttr: "Accountability" },
+                { q: "Do you feel your efforts genuinely help the team shine and make a real difference?", mainAttr: "Fruitfulness", subAttr: "Impact" },
+                { q: "Do you actively seek out solutions, even if it means stepping outside your usual role?", mainAttr: "Hustle", subAttr: "Resourcefulness" },
+                { q: "Do your good vibes and enthusiasm tend to rub off on others around you?", mainAttr: "Passion", subAttr: "Inspiration" },
+                { q: "Do you believe being consistent in your words and actions builds mad trust with people?", mainAttr: "Integrity", subAttr: "Trustworthiness" },
+                { q: "Are you always checking in with yourself asking, 'How can I level up my game?'", mainAttr: "Fruitfulness", subAttr: "Growth-minded" },
+                { q: "Do you believe in that 'never give up' mentality when chasing a goal?", mainAttr: "Hustle", subAttr: "Persistence" },
+                { q: "Seeing your crew nail something big – does that seriously make your day?", mainAttr: "Passion", subAttr: "Joy" },
+                { q: "Would you pick doing the right thing over a quick, kinda shady win?", mainAttr: "Integrity", subAttr: "Ethics" },
+                { q: "Are you usually the one spotting potential roadblocks and figuring out how to zoom past them?", mainAttr: "Fruitfulness", subAttr: "Effectiveness" },
+                { q: "Are you cool with putting in some extra hours if it means crushing a project?", mainAttr: "Hustle", subAttr: "Work Ethic" },
+                { q: "Are you always down to deep-dive and learn more about stuff you're passionate about?", mainAttr: "Passion", subAttr: "Drive" },
+                { q: "Do you think a leader should always walk the talk when it comes to being honest and owning it?", mainAttr: "Integrity", subAttr: "Honesty" },
+                { q: "Does seeing tangible, awesome results from your hard work make you feel like a boss?", mainAttr: "Fruitfulness", subAttr: "Results-oriented" },
+                { q: "When things go sideways, are you quick to pivot and figure out a new game plan?", mainAttr: "Hustle", subAttr: "Agility" },
+                { q: "Do you find genuine delight in the work you do, even the gritty parts?", mainAttr: "Passion", subAttr: "Joy" }, 
+                { q: "Are you comfortable saying 'I don't know, but I'll find out!' when you don't have an answer?", mainAttr: "Integrity", subAttr: "Transparency" },
+                { q: "Do you enjoy setting big, awesome goals and then chasing them down?", mainAttr: "Fruitfulness", subAttr: "Productivity" },
+                { q: "Do you see challenges as personal growth opportunities to level up?", mainAttr: "Hustle", subAttr: "Proactiveness" }, 
+                { q: "Do you feel fully present and all-in when you're participating in team activities?", mainAttr: "Passion", subAttr: "Engagement" }, 
+                { q: "Do you treat everyone on your squad fairly, no favorites, just good vibes?", mainAttr: "Integrity", subAttr: "Fairness" },
+                { q: "Are your contributions adding real, measurable value to the team and the mission?", mainAttr: "Fruitfulness", subAttr: "Contribution" },
+                { q: "Do you proactively anticipate needs and take steps to address them before being asked?", mainAttr: "Hustle", subAttr: "Proactiveness" }, 
+                { q: "Do you often find yourself thinking about how to improve things, even outside of official work time?", mainAttr: "Passion", subAttr: "Commitment" }, 
+                { q: "Do you always strive for clear, open communication in all your dealings?", mainAttr: "Integrity", subAttr: "Transparency" }
             ];
 
-            // Feedback messages based on score
-            const feedback = {
-                Passion: {
-                    low: "Your passion is the fuel for your leadership journey. Explore what truly excites you and reconnect with your core purpose.",
-                    medium: "You have a good spark of passion! Nurture it by celebrating small wins and remembering your 'why' more often.",
-                    high: "Your passion is vibrant and infectious! Continue to lead with heart, and your enthusiasm will inspire others."
+            const answerOptions = [
+                { text: "Nah, not my jam.", value: 1 },
+                { text: "Kinda, depends.", value: 2 },
+                { text: "Yeah, that's me!", value: 3 },
+                { text: "Absolutely, 100%!", value: 4 }
+            ];
+
+            // Dynamically render questions - now blended
+            function renderQuestions() {
+                let questionHtml = '';
+                questionHtml += `<div class="space-y-4">`; // Start a container for all questions
+
+                allQuestions.forEach((q, index) => {
+                    const questionName = `${q.mainAttr.toLowerCase()}${index + 1}`; // e.g., passion1, integrity2
+                    const optionsHtml = answerOptions.map(option => `
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="${questionName}" value="${option.value}" class="form-radio text-amber-600">
+                            <span class="ml-2">${option.text}</span>
+                        </label>
+                    `).join('');
+
+                    const questionBlock = `
+                        <div class="bg-stone-50 p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-stone-800 mb-2">${index + 1}. ${q.q}</p>
+                            <div class="flex flex-wrap gap-4">
+                                ${optionsHtml}
+                            </div>
+                        </div>
+                    `;
+                    questionHtml += questionBlock; // Add question directly to the main HTML string
+                });
+
+                questionHtml += `</div>`; // Close the container for all questions
+
+                form.innerHTML = questionHtml + `
+                    <button type="submit" id="submit-quiz" class="mt-8 w-full bg-amber-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-amber-700 transition-transform transform hover:scale-105">Reveal My Radar</button>
+                `;
+                // Re-assign submitButton after re-rendering the form
+                submitButton = document.getElementById('submit-quiz');
+                submitButton.addEventListener('click', handleSubmit);
+            }
+
+
+            // Attributes and their associated questions (names of radio button groups)
+            const attributes = {
+                passion: {
+                    questions: [], // These will be populated dynamically
+                    feedback: {
+                        low: "Time to light that fire! Reconnect with your 'why'. Reflect on what truly excites you and brings you joy in your work or mission. Consider volunteering for something you genuinely care about to rekindle your enthusiasm.",
+                        medium: "Your passion is simmering, let's turn up the heat! Explore new aspects of your role, seek out inspiring mentors, or take on a project that truly ignites your interest.",
+                        high: "Your passion is a beacon! Keep shining bright. Look for ways to share your enthusiasm and inspire those around you, becoming a catalyst for positive change. Mentor others and lead with your vibrant energy."
+                    }
                 },
-                Integrity: {
-                    low: "Building trust is key. Focus on consistent honesty and transparency to strengthen your foundation.",
-                    medium: "Your integrity is solid. To build even stronger trust, practice radical candor and consistent follow-through.",
-                    high: "You embody integrity! Your reliability and honesty are powerful assets that set a strong example for everyone around you."
+                integrity: {
+                    questions: [], // These will be populated dynamically
+                    feedback: {
+                        low: "Building trust starts with consistency. Focus on keeping your promises, being transparent, and owning your mistakes. Small, consistent acts of honesty will build a strong foundation.",
+                        medium: "You're on the right track with integrity. Continue to prioritize honesty and accountability. Seek feedback on how you can further strengthen trust in your relationships.",
+                        high: "Your integrity is unwavering! You are a rock for others. Continue to lead by example, uphold the highest ethical standards, and be a voice for truth and fairness in all situations."
+                    }
                 },
-                Fruitfulness: {
-                    low: "To see more fruit, consider clarifying your goals and focusing on high-impact activities. Celebrate your contributions!",
-                    medium: "You're making an impact! Look for new ways to optimize your efforts and seek innovative solutions to amplify your results.",
-                    high: "Your fruitfulness is undeniable! Keep cultivating growth and seeking opportunities to contribute at an even higher level."
+                fruitfulness: {
+                    questions: [], // These will be populated dynamically
+                    feedback: {
+                        low: "It's time to sow for a greater harvest. Focus on setting clear, measurable goals and breaking them down into actionable steps. Prioritize your tasks and eliminate distractions to boost your productivity.",
+                        medium: "You're bearing fruit, but there's room for a more abundant harvest! Review your processes for efficiency and look for innovative ways to maximize your impact. Consider new skills that could amplify your results.",
+                        high: "You are a highly fruitful leader! Your impact is clear and significant. Look for opportunities to multiply your efforts by empowering others, delegating effectively, and fostering a culture of high performance and innovation."
+                    }
                 },
-                Hustle: {
-                    low: "Embrace the 'go-getter' mindset. Proactively tackle challenges and persist through obstacles to turn vision into reality.",
-                    medium: "You've got hustle! Channel this energy into consistent diligence and strategic resourcefulness to achieve breakthrough.",
-                    high: "Your hustle is exceptional! Your proactive drive and persistence are making things happen. Keep pushing boundaries!"
+                hustle: {
+                    questions: [], // These will be populated dynamically
+                    feedback: {
+                        low: "Time to activate that go-getter spirit! Start by identifying one small step you can take today to move forward on a goal. Break tasks into smaller pieces and celebrate each completion to build momentum.",
+                        medium: "You've got hustle, but consistency is key. Push through resistance, avoid procrastination, and embrace challenges as opportunities for growth. Develop a routine that supports consistent effort.",
+                        high: "Your hustle is unstoppable! You are a force of action and persistence. Continue to take initiative, adapt quickly, and be resourceful. Inspire others with your drive and show them what's possible with relentless effort."
+                    }
                 }
             };
 
-            assessmentForm.addEventListener('submit', function (event) {
+            // Populate the questions array for each attribute dynamically
+            allQuestions.forEach((q, index) => {
+                const questionName = `${q.mainAttr.toLowerCase()}${index + 1}`;
+                attributes[q.mainAttr.toLowerCase()].questions.push(questionName);
+            });
+
+            // Handle form submission
+            function handleSubmit(event) {
                 event.preventDefault(); // Prevent default form submission
 
                 const scores = {
-                    Passion: 0,
-                    Integrity: 0,
-                    Fruitfulness: 0,
-                    Hustle: 0
+                    passion: 0,
+                    integrity: 0,
+                    fruitfulness: 0,
+                    hustle: 0
                 };
 
-                const questionsPerAttribute = {
-                    Passion: 0,
-                    Integrity: 0,
-                    Fruitfulness: 0,
-                    Hustle: 0
-                };
+                let allAnswered = true;
+                const answeredQuestions = new Set(); // To track unique question groups answered
 
-                let allQuestionsAnswered = true;
+                // Iterate over each attribute and its questions
+                for (const attribute in attributes) {
+                    attributes[attribute].questions.forEach(questionName => {
+                        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                        if (selectedOption) {
+                            scores[attribute] += parseInt(selectedOption.value);
+                            answeredQuestions.add(questionName); // Mark this specific question as answered
+                        }
+                    });
+                }
 
-                questions.forEach(q => {
-                    const selectedOption = document.querySelector(`input[name="${q.id}"]:checked`);
-                    if (selectedOption) {
-                        scores[q.attribute] += parseInt(selectedOption.value);
-                        questionsPerAttribute[q.attribute]++;
-                    } else {
-                        allQuestionsAnswered = false;
+                // Check if all questions in all attributes have been answered
+                let totalExpectedQuestions = allQuestions.length;
+                
+                if (answeredQuestions.size !== totalExpectedQuestions) {
+                    showMessageBox('Please answer all questions before revealing your radar.');
+                    allAnswered = false;
+                    // Reset scores if not all answered to prevent partial results from showing up
+                    for (const attribute in scores) {
+                        scores[attribute] = 0;
                     }
-                });
-
-                if (!allQuestionsAnswered) {
-                    showMessageBox('Please answer all questions before submitting your assessment!');
-                    return; // Stop function execution if not all questions are answered
                 }
 
-                // Calculate average scores (max score per attribute is 4)
-                const finalScores = {};
-                for (const attr in scores) {
-                    // Check if questionsPerAttribute[attr] is greater than 0 to avoid division by zero
-                    finalScores[attr] = questionsPerAttribute[attr] > 0 ? (scores[attr] / questionsPerAttribute[attr]) : 0;
+                if (!allAnswered) {
+                    return; // Stop execution if not all questions are answered
                 }
+
+                // Normalize scores to a 1-4 scale
+                const normalizedScores = {
+                    passion: (scores.passion / attributes.passion.questions.length),
+                    integrity: (scores.integrity / attributes.integrity.questions.length),
+                    fruitfulness: (scores.fruitfulness / attributes.fruitfulness.questions.length),
+                    hustle: (scores.hustle / attributes.hustle.questions.length)
+                };
 
                 // Destroy existing chart if it exists
-                if (myRadarChart) {
-                    myRadarChart.destroy();
+                if (radarChart) {
+                    radarChart.destroy();
                 }
 
                 // Render Radar Chart
-                myRadarChart = new Chart(myRadarChartCanvas, {
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                radarChart = new Chart(ctx, {
                     type: 'radar',
                     data: {
                         labels: ['Passion', 'Integrity', 'Fruitfulness', 'Hustle'],
                         datasets: [{
-                            label: 'Your Leadership Score',
+                            label: 'Your Score',
                             data: [
-                                finalScores.Passion,
-                                finalScores.Integrity,
-                                finalScores.Fruitfulness,
-                                finalScores.Hustle
+                                normalizedScores.passion.toFixed(2),
+                                normalizedScores.integrity.toFixed(2),
+                                normalizedScores.fruitfulness.toFixed(2),
+                                normalizedScores.hustle.toFixed(2)
                             ],
-                            backgroundColor: 'rgba(245, 158, 11, 0.6)', // Amber 600 with transparency
-                            borderColor: 'rgba(245, 158, 11, 1)', // Amber 600
+                            backgroundColor: 'rgba(251, 191, 36, 0.6)', // Amber-400 with opacity
+                            borderColor: 'rgba(217, 119, 6, 1)', // Amber-700
                             borderWidth: 2,
-                            pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+                            pointBackgroundColor: 'rgba(217, 119, 6, 1)',
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(245, 158, 11, 1)'
+                            pointHoverBorderColor: 'rgba(217, 119, 6, 1)'
                         }]
                     },
                     options: {
@@ -1094,34 +485,47 @@
                         scales: {
                             r: {
                                 angleLines: {
-                                    color: 'rgba(168, 162, 158, 0.3)' // Stone 400
+                                    display: true,
+                                    color: 'rgba(120, 113, 108, 0.3)' // Stone-500 with opacity
                                 },
                                 grid: {
-                                    color: 'rgba(168, 162, 158, 0.3)' // Stone 400
+                                    color: 'rgba(120, 113, 108, 0.3)'
                                 },
                                 pointLabels: {
+                                    color: '#292524', // Stone-900
                                     font: {
                                         size: 14,
                                         weight: 'bold'
-                                    },
-                                    color: '#292524' // Stone 800
+                                    }
                                 },
                                 suggestedMin: 0,
-                                suggestedMax: 4, // Max score for each attribute
+                                suggestedMax: 4,
                                 ticks: {
-                                    stepSize: 1,
-                                    display: false // Hide numerical ticks
-                                }
+                                    display: false, // Hide the numbers on the scale
+                                    stepSize: 1
+                                },
                             }
                         },
                         plugins: {
                             legend: {
-                                display: false
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    color: '#292524', // Stone-900
+                                    font: {
+                                        size: 14
+                                    }
+                                }
                             },
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        return context.dataset.label + ': ' + context.raw.toFixed(2);
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += parseFloat(context.raw).toFixed(2);
+                                        return label;
                                     }
                                 }
                             }
@@ -1129,59 +533,57 @@
                     }
                 });
 
-                chartWrapper.classList.remove('hidden');
+                radarChartWrapper.classList.remove('hidden');
 
-                // Generate and display feedback
-                feedbackSection.innerHTML = `
-                    <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Personalized Feedback</h3>
-                `; // Clear previous feedback
+                // Generate Feedback
+                feedbackSection.innerHTML = ''; // Clear previous feedback
 
-                for (const attr in finalScores) {
-                    const score = finalScores[attr];
+                for (const attr in normalizedScores) {
+                    const score = normalizedScores[attr];
                     let feedbackText = '';
+                    let subAttrHtml = '';
+
+                    // Determine feedback based on score range (normalized 1-4)
                     if (score >= 3.5) {
-                        feedbackText = `<p class="text-stone-700 mt-2">${feedback[attr].high}</p>`;
+                        feedbackText = attributes[attr].feedback.high;
                     } else if (score >= 2.5) {
-                        feedbackText = `<p class="text-stone-700 mt-2">${feedback[attr].medium}</p>`;
+                        feedbackText = attributes[attr].feedback.medium;
                     } else {
-                        feedbackText = `<p class="text-stone-700 mt-2">${feedback[attr].low}</p>`;
+                        feedbackText = attributes[attr].feedback.low;
                     }
 
-                    // Get sub-attributes for the current main attribute
-                    const subAttributes = questions.filter(q => q.attribute === attr);
-                    let subAttrHtml = '';
-                    // Dynamically generate individual question feedback (using the actual scores from the questions)
-                    subAttributes.forEach(subAttr => {
-                        const selectedOption = document.querySelector(`input[name="${subAttr.id}"]:checked`);
-                        const subAttrScore = selectedOption ? parseInt(selectedOption.value) : 0;
-                        let subAttrFeedback = '';
-                        if (subAttrScore === 4) {
-                            subAttrFeedback = 'Excellent! You excel in this area.';
-                        } else if (subAttrScore === 3) {
-                            subAttrFeedback = 'Good, but there\'s room for growth.';
-                        } else if (subAttrScore === 2) {
-                            subAttrFeedback = 'This area could use more attention.';
-                        } else { // 1
-                            subAttrFeedback = 'Significant improvement needed here.';
-                        }
-
-                        // Remove "I actively seek out new responsibilities and challenges in my work." for "Hustle (Proactiveness)" from subAttr.text
-                        // as we have created a new question for hustle and the question needs to be changed
-                        let subAttrKey = subAttr.text.replace(/^I (actively seek out new responsibilities and challenges in my work|maintain a positive attitude even when faced with significant setbacks|always tell the truth, regardless of the consequences|am consistently reliable in fulfilling my commitments|strive to make a tangible, positive impact in my role|am effective at achieving desired outcomes and goals|proactively take initiative to solve problems before they escalate|demonstrate strong persistence in pursuing long-term objectives|am passionate about the mission and goals of my organization\/team|am enthusiastic and energetic in my approach to leadership|am consistently honest and transparent in all my interactions|take full accountability for my actions and decisions|regularly contribute innovative ideas to my team\/organization|am highly productive and efficient in my work tasks|am agile and adapt quickly to changing circumstances|demonstrate a strong work ethic and commitment to my duties|am driven by a deep sense of purpose in my leadership role|inspire and motivate others through my actions and words|consistently uphold ethical principles in all professional situations|treat all team members and colleagues with fairness and respect|am focused on achieving measurable results and outcomes|actively seek opportunities for personal and professional growth|am resourceful in finding solutions to complex problems|am diligent in completing tasks and projects on time|derive genuine joy and engagement from my leadership responsibilities|am deeply committed to the long-term vision of our mission|actions consistently align with my stated values and principles|am trustworthy and reliable, always keeping my promises|ensure that my contributions lead to clear and positive results|actively seek out and implement new and better ways to perform tasks|take initiative to continuously improve processes and outcomes)\.? /, '').replace(/\.$/, '');
-
-
-                        subAttrHtml += `
-                            <div class="p-3 bg-stone-50 rounded-lg">
-                                <p class="text-sm font-bold text-stone-800">${subAttrKey}: <span class="font-bold text-amber-700">${subAttrScore}/4</span></p>
-                                ${subAttrFeedback}
-                            </div>
-                        `;
-                    });
-
+                    // For now, sub-attributes are not dynamically scored, so provide general insights or tips related to each main attribute.
+                    // This section can be enhanced if detailed sub-attribute scoring is implemented.
+                    switch (attr) {
+                        case 'passion':
+                            subAttrHtml = `
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Tip:</p><p class="text-stone-700">Practice gratitude daily to rekindle your enthusiasm for your mission.</p></div>
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Action:</p><p class="text-stone-700">Identify one small task you genuinely enjoy and dedicate specific time to it this week.</p></div>
+                            `;
+                            break;
+                        case 'integrity':
+                            subAttrHtml = `
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Tip:</p><p class="text-stone-700">Always follow through on commitments, no matter how small.</p></div>
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Action:</p><p class="text-stone-700">Seek an accountability partner to help you stay consistent in your actions.</p></div>
+                            `;
+                            break;
+                        case 'fruitfulness':
+                            subAttrHtml = `
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Tip:</p><p class="text-stone-700">Define clear, measurable outcomes for your projects to track real progress.</p></div>
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Action:</p><p class="text-stone-700">Learn a new productivity technique and apply it for a week.</p></div>
+                            `;
+                            break;
+                        case 'hustle':
+                            subAttrHtml = `
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Tip:</p><p class="text-stone-700">Embrace a 'bias for action' – start small, but start now.</p></div>
+                                <div class="bg-stone-50 p-4 rounded-lg"><p class="font-semibold text-stone-800">Action:</p><p class="text-stone-700">Identify one recurring challenge and proactively develop a plan to overcome it.</p></div>
+                            `;
+                            break;
+                    }
 
                     const mainAttrHtml = `
-                        <div class="bg-stone-100 p-4 rounded-lg shadow-sm">
-                            <h4 class="text-xl font-bold text-amber-700 mb-3">${attr} Score: ${score.toFixed(2)}/4</h4>
+                        <div class="bg-stone-100 p-6 rounded-lg shadow-md">
+                            <h4 class="text-xl font-bold text-slate-900 mb-2 capitalize">${attr} Score: ${normalizedScores[attr].toFixed(2)}/4</h4>
                             ${feedbackText}
                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 ${subAttrHtml}
@@ -1192,9 +594,16 @@
                 }
 
                 feedbackSection.classList.remove('hidden');
-                chartWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            });
+                // Ensure chartWrapper is defined for scrolling.
+                const chartWrapper = document.getElementById('radar-chart-wrapper');
+                if (chartWrapper) {
+                    chartWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
             
+            // Initial render of questions
+            renderQuestions();
+
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
