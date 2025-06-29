@@ -246,6 +246,7 @@
             <div id="feedback-section" class="hidden mt-12 space-y-8 bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
                 <h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Personalized Feedback</h3>
                 <!-- Dynamic feedback will be inserted here -->
+                <button id="email-results-button" class="mt-8 w-full bg-slate-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-slate-800 transition-transform transform hover:scale-105">Share Results via Email</button>
             </div>
         </section>
 
@@ -281,6 +282,7 @@
             let submitButton = document.getElementById('submit-quiz'); 
             const radarChartWrapper = document.getElementById('radar-chart-wrapper');
             const feedbackSection = document.getElementById('feedback-section');
+            const emailResultsButton = document.getElementById('email-results-button'); // Get the new button
             let radarChart = null; // To hold the Chart.js instance
 
             // New questions and answer options as provided by the user
@@ -402,6 +404,10 @@
                 attributes[q.mainAttr.toLowerCase()].questions.push(questionName);
             });
 
+            // Store the last calculated normalized scores and feedback texts for email
+            let lastNormalizedScores = {};
+            let lastFeedbackTexts = {};
+
             // Handle form submission
             function handleSubmit(event) {
                 event.preventDefault(); // Prevent default form submission
@@ -444,7 +450,7 @@
                 }
 
                 // Normalize scores to a 1-4 scale
-                const normalizedScores = {
+                lastNormalizedScores = { // Store for email
                     passion: (scores.passion / attributes.passion.questions.length),
                     integrity: (scores.integrity / attributes.integrity.questions.length),
                     fruitfulness: (scores.fruitfulness / attributes.fruitfulness.questions.length),
@@ -465,10 +471,10 @@
                         datasets: [{
                             label: 'Your Score',
                             data: [
-                                normalizedScores.passion.toFixed(2),
-                                normalizedScores.integrity.toFixed(2),
-                                normalizedScores.fruitfulness.toFixed(2),
-                                normalizedScores.hustle.toFixed(2)
+                                lastNormalizedScores.passion.toFixed(2),
+                                lastNormalizedScores.integrity.toFixed(2),
+                                lastNormalizedScores.fruitfulness.toFixed(2),
+                                lastNormalizedScores.hustle.toFixed(2)
                             ],
                             backgroundColor: 'rgba(251, 191, 36, 0.6)', // Amber-400 with opacity
                             borderColor: 'rgba(217, 119, 6, 1)', // Amber-700
@@ -536,10 +542,11 @@
                 radarChartWrapper.classList.remove('hidden');
 
                 // Generate Feedback
-                feedbackSection.innerHTML = ''; // Clear previous feedback
+                feedbackSection.innerHTML = ''; // Clear previous feedback, but keep the email button
+                let feedbackContentHtml = ''; // Build feedback content separately
 
-                for (const attr in normalizedScores) {
-                    const score = normalizedScores[attr];
+                for (const attr in lastNormalizedScores) {
+                    const score = lastNormalizedScores[attr];
                     let feedbackText = '';
                     let subAttrHtml = '';
 
@@ -551,6 +558,7 @@
                     } else {
                         feedbackText = attributes[attr].feedback.low;
                     }
+                    lastFeedbackTexts[attr] = feedbackText; // Store for email
 
                     // For now, sub-attributes are not dynamically scored, so provide general insights or tips related to each main attribute.
                     // This section can be enhanced if detailed sub-attribute scoring is implemented.
@@ -583,14 +591,24 @@
 
                     const mainAttrHtml = `
                         <div class="bg-stone-100 p-6 rounded-lg shadow-md">
-                            <h4 class="text-xl font-bold text-slate-900 mb-2 capitalize">${attr} Score: ${normalizedScores[attr].toFixed(2)}/4</h4>
+                            <h4 class="text-xl font-bold text-slate-900 mb-2 capitalize">${attr} Score: ${lastNormalizedScores[attr].toFixed(2)}/4</h4>
                             ${feedbackText}
                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 ${subAttrHtml}
                             </div>
                         </div>
                     `;
-                    feedbackSection.innerHTML += mainAttrHtml;
+                    feedbackContentHtml += mainAttrHtml;
+                }
+                // Prepend the feedback content to the feedback section, then append the email button
+                feedbackSection.innerHTML = `<h3 class="text-2xl font-bold text-center text-slate-900 mb-6">Personalized Feedback</h3>` + feedbackContentHtml + `
+                    <button id="email-results-button" class="mt-8 w-full bg-slate-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-slate-800 transition-transform transform hover:scale-105">Share Results via Email</button>
+                `;
+                
+                // Re-get the email button element after innerHTML update
+                const currentEmailButton = document.getElementById('email-results-button');
+                if (currentEmailButton) {
+                    currentEmailButton.addEventListener('click', handleEmailResults);
                 }
 
                 feedbackSection.classList.remove('hidden');
@@ -599,6 +617,28 @@
                 if (chartWrapper) {
                     chartWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+            }
+
+            function handleEmailResults() {
+                let emailSubject = encodeURIComponent("My Rising Stars Leadership Radar Results");
+                let emailBody = `Hello,\n\n`;
+                let recipientEmail = 'Bami.olubadejo@c3toronto.com'
+                emailBody += `Here are my results from the Rising Stars Interactive Leadership Course Radar Check:\n\n`;
+                emailBody += `--- Leadership Radar Scores (out of 4): ---\n`;
+                emailBody += `- Passion: ${lastNormalizedScores.passion.toFixed(2)}\n`;
+                emailBody += `- Integrity: ${lastNormalizedScores.integrity.toFixed(2)}\n`;
+                emailBody += `- Fruitfulness: ${lastNormalizedScores.fruitfulness.toFixed(2)}\n`;
+                emailBody += `- Hustle: ${lastNormalizedScores.hustle.toFixed(2)}\n`;
+                emailBody += `------------------------------------------\n\n`;
+                emailBody += `--- Personalized Feedback: ---\n`;
+                emailBody += `Passion: ${lastFeedbackTexts.passion}\n\n`;
+                emailBody += `Integrity: ${lastFeedbackTexts.integrity}\n\n`;
+                emailBody += `Fruitfulness: ${lastFeedbackTexts.fruitfulness}\n\n`;
+                emailBody += `Hustle: ${lastFeedbackTexts.hustle}\n\n`;
+                emailBody += `Looking forward to my growth journey!\n`;
+
+                const mailtoLink = `mailto:${recipientEmail}subject=${emailSubject}&body=${encodeURIComponent(emailBody)}`;
+                window.location.href = mailtoLink;
             }
             
             // Initial render of questions
